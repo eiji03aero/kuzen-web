@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  kuzen-web:
+    container_name: kuzen-web
+    build: .
+    image: node:12.7.0-buster
+    working_dir: /projects
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/projects
+    tty: true
+    command: /bin/bash
