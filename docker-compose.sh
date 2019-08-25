@@ -21,12 +21,12 @@ function stop-docker-compose () {
 }
 
 if [ $COMMAND = 'up' ] && [ $# -le 1 ]; then
-  trap 'stop-docker-compose' SIGINT
   execute-docker-compose up -d
 
   execute-docker-sync start
   execute-docker-compose exec kuzen-web yarn install
   execute-docker-compose exec kuzen-web /bin/bash
+  stop-docker-compose
 elif [ $COMMAND = 'bash' ]; then
   execute-docker-compose exec kuzen-web /bin/bash
 elif [ $COMMAND = 'exec' ]; then
