@@ -64,5 +64,5 @@ show.tabletAndAbove = css`
 
 export const fonts = {
   medium: `font-family: '${C.FONT_FAMILY.NOTO_SANS_JP_MEDIUM}';`,
-  bold: `font-family: '${C.TYPOGRAPHIES.NOTO_SANS_JP_BOLD}';`,
+  bold: `font-family: '${C.FONT_FAMILY.NOTO_SANS_JP_BOLD}';`,
 };

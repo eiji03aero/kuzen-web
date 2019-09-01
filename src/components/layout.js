@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-import { Header } from './organisms';
+import { Header, Footer } from './organisms';
 
 const Layout = ({ children, ...rest }) => {
   const data = useStaticQuery(graphql`
@@ -22,6 +22,7 @@ const Layout = ({ children, ...rest }) => {
       <main>
         {children}
       </main>
+      <Footer />
     </>
   )
 }

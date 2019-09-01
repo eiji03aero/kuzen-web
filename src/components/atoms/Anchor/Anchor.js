@@ -42,6 +42,7 @@ Styles.main = css`
   ${C.TYPOGRAPHIES.LINK}
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   text-decoration: none;
   cursor: pointer;

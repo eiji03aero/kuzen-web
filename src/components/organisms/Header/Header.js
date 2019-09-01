@@ -14,7 +14,6 @@ import { AnchorDropdown } from '../../molecules';
 import * as C from '../../../primitives';
 import { styles } from '../../../utils';
 import { paths } from '../../../paths.js';
-
 import { useCompositeState } from '../../../hooks';
 
 export const Header = ({

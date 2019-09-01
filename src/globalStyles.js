@@ -21,6 +21,10 @@ export const injectGlobalStyle = () => injectGlobal`
     appearance: none;
   }
 
+  address {
+    font-style: normal;
+  }
+
   ${styles.mobileOnly} {
   }
 `;
