@@ -1,26 +1,27 @@
-import React from "react"
-import { useTranslation } from "react-i18next";
-import { Link } from "gatsby"
+import React from "react";
+import { css } from 'emotion';
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
 
 const IndexPage = () => {
-  const { t } = useTranslation();
   return (
     <Layout>
-      <SEO title="Home" />
-      <h1>Hi people</h1>
-      <h2>{t('test')}</h2>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
+      <div style={{height: 2000, backgroundColor: 'blue', padding: 40}}>
+        <div className={css`
+          padding-top: 0;
+          @media screen and (min-width: 768px) {
+            padding-top: 60px;
+          }
+          @media screen and (min-width: 1024px) {
+            padding-top: 120px;
+          }
+          `}
+          style={{fontSize: 40, color: 'white'}}>
+          <h1>Title</h1>
+        </div>
       </div>
-      <Link to="/page-2/">Go to page 2</Link>
     </Layout>
   );
-}
+};
 
 export default IndexPage

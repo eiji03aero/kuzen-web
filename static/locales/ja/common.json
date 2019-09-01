@@ -1,3 +1,33 @@
 {
-  "test": "テストですわ"
+  "contact": "お問い合わせ",
+  "top": "TOP",
+  "services": {
+    "title": "サービス",
+    "kuzen-engage": "KUZEN-ENGAGE",
+    "kuzen-support": "KUZEN-SUPPORT",
+    "kuzen-work": "KUZEN-WORK"
+  },
+  "functions": {
+    "title": "機能一覧",
+    "intuitive-ui": "直感的なUI",
+    "scenario": "シナリオ作成",
+    "customizable-contents": "様々な応答方法",
+    "data-analytics": "データ分析",
+    "nlp": "自然言語処理",
+    "machine-learning": "学習機能",
+    "multilingual-support": "多言語対応",
+    "operator": "有人切り替え",
+    "notifications": "セグメント配信",
+    "custom-db": "カスタムDB",
+    "integration-with-chat-platforms": "対話インターフェースとの連携",
+    "integration-with-external-systems": "外部API連携"
+
+  },
+  "functions--short": {
+    "operator": "有人切替",
+    "integration-with-chat-platforms": "対話IFとの連携"
+  },
+  "case-studies": "導入一覧",
+  "news": "ニュース",
+  "download-documents": "資料ダウンロード"
 }

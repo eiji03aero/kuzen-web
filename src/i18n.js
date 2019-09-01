@@ -10,7 +10,7 @@ export const initI18n = () => {
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      fallbackLng: 'en',
+      fallbackLng: 'ja',
       ns: ['common'],
       defaultNS: "common",
       debug: true,

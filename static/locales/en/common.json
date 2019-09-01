@@ -1,3 +1,32 @@
 {
-  "test": "test locale dane"
+  "contact": "Contact",
+  "top": "TOP",
+  "services": {
+    "title": "Services",
+    "kuzen-engage": "KUZEN-ENGAGE",
+    "kuzen-support": "KUZEN-SUPPORT",
+    "kuzen-work": "KUZEN-WORK"
+  },
+  "functions": {
+    "title": "Functions",
+    "intuitive-ui": "Intuitive UI",
+    "scenario": "Scenario",
+    "customizable-contents": "Customizable contents",
+    "data-analytics": "Data analytics",
+    "nlp": "NLP",
+    "machine-learning": "Machine learning",
+    "multilingual-support": "Multilingual support",
+    "operator": "Operator",
+    "notifications": "Notifications",
+    "custom-db": "Custom DB",
+    "integration-with-chat-platforms": "Integration with chat platforms",
+    "integration-with-external-systems": "Integration with external systems"
+  },
+  "functions--short": {
+    "operator": "operator",
+    "integration-with-chat-platforms": "Intg w/ chats"
+  },
+  "case-studies": "Case studies",
+  "news": "News",
+  "download-documents": "Download docs "
 }

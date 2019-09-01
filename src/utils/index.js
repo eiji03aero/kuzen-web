@@ -1,7 +1,7 @@
-import * as mediaQueries from './mediaQueries.js';
-import * as strings from './strings.js';
+import * as styles from './styles.js';
+import * as animations from './animations.js';
 
 export {
-  mediaQueries,
-  strings
+  styles,
+  animations
 }

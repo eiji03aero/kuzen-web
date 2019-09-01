@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from 'emotion';
 
 import * as primitives from '../../../primitives';
-import { mediaQueries, strings } from '../../../utils';
+import { styles } from '../../../utils';
 
 const { BREAK_POINTS: { PC }} = primitives;
 
@@ -12,7 +12,7 @@ export const Container = ({
   component: Component,
   ...rest
 }) => {
-  const mainClassName = strings.classnames([
+  const mainClassName = styles.cn([
     Styles.main,
     className
   ]);
@@ -27,11 +27,11 @@ Styles.main = css`
   width: 100%;
   margin: 0 auto;
 
-  ${mediaQueries.tabletAndAbove} {
+  ${styles.mq.tabletAndAbove} {
     width: 85%;
   }
 
-  ${mediaQueries.pcAndAbove} {
+  ${styles.mq.pcAndAbove} {
     width: ${PC}px;
   }
 `;
