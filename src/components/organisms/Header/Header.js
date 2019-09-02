@@ -133,7 +133,7 @@ export const Header = ({
                 ? 'white-outline'
                 : 'black-outline'}
               label={t('contact')}
-              onClick={() => navigate(paths.root)}
+              onClick={() => navigate(paths.contact)}
             />
           </div>
         </div>
@@ -160,6 +160,7 @@ Styles.main = css`
   padding: 0 ${styles.baseScale(3)};
   background-color: ${C.COLORS.WHITE};
   box-shadow: 0 2px 12px ${C.COLORS.DIM_GREY};
+  z-index: 1;
   transition: background-color 250ms, height 250ms;
 
   &__left {

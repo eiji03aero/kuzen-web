@@ -36,6 +36,7 @@ const Styles = {};
 Styles.main = css`
   display: flex;
   align-items: center;
+  width: 100%;
   height: ${styles.baseScale(5)};
   padding: 0 ${styles.baseScale(0.5)};
   background-color: transparent;

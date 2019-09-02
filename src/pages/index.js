@@ -1,11 +1,95 @@
-import React from "react";
+import React from 'react';
+import { graphql, navigate } from 'gatsby';
+import Img from 'gatsby-image';
+import { useTranslation } from 'react-i18next';
 import { css } from 'emotion';
+import _ from 'lodash';
 
+import {
+  SvgIcon,
+  Button,
+  Container,
+  TopBanner,
+} from '../components';
 import Layout from "../components/layout";
 
-const IndexPage = () => {
+import * as C from '../primitives';
+import { styles } from '../utils';
+import { paths } from '../paths.js';
+
+export default ({data}) => {
+  const { t } = useTranslation(['common', 'index']);
+
+  const sources = [
+    data.mobileImage.childImageSharp.fluid,
+    {
+      ...data.desktopImage.childImageSharp.fluid,
+      media: styles.mqCond.tabletAndAbove
+    }
+  ];
+
   return (
     <Layout>
+      <TopBanner
+        fluid={sources}
+        children={
+          <Top
+            title={t('index:top.title')}
+            subTitle={t('index:top.sub-title')}
+            buttonLabel={t('common:download-documents')}
+            onClick={() => navigate(paths.contact)}
+          />
+        }
+      />
+
+      <Container>
+        <Section>
+          <Section.Title component='h2'>
+            {t('index:usecases.title')}
+          </Section.Title>
+          <div className={bgStyles.main}>
+            <Button
+              label='ENGAGE'
+              type='secondary'
+              size='small'
+              rectangle
+            />
+            <Button
+              label='SUPPORT'
+              type='default'
+              size='small'
+              rectangle
+            />
+            <Button
+              label='WORK'
+              type='default'
+              size='small'
+              rectangle
+            />
+          </div>
+          <div className={Styles.icGrid}>
+            <IntroductionCard
+              catchphrase={t('index:usecases.kuzen-engage.catchphrase')}
+              imageUrl={data.introKuzenEngageImage.publicURL}
+              title={t('common:kuzen-engage')}
+              points={t('index:usecases.kuzen-engage.points', {returnObjects: true})}
+            />
+            <IntroductionCard
+              catchphrase={t('index:usecases.kuzen-support.catchphrase')}
+              imageUrl={data.introKuzenSupportImage.publicURL}
+              title={t('common:kuzen-support')}
+              points={t('index:usecases.kuzen-support.points', {returnObjects: true})}
+            />
+            <IntroductionCard
+              catchphrase={t('index:usecases.kuzen-work.catchphrase')}
+              imageUrl={data.introKuzenWorkImage.publicURL}
+              title={t('common:kuzen-work')}
+              points={t('index:usecases.kuzen-work.points', {returnObjects: true})}
+            />
+          </div>
+        </Section>
+      </Container>
+
       <div style={{height: 2000, backgroundColor: 'blue', padding: 40}}>
         <div className={css`
           padding-top: 0;
@@ -24,4 +108,393 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage
+export const query = graphql`
+  query {
+    mobileImage: file(relativePath: { eq: "Backgrounds/Phone/Background_TopPage_Phone.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 1000, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    desktopImage: file(
+      relativePath: { eq: "Backgrounds/Background_TopPage.png" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 2000, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    introKuzenEngageImage: file(relativePath: { eq: "Graphics/TopPage/Scenario_Kuzen-Engage.png"}) {
+      publicURL
+    }
+    introKuzenSupportImage: file(relativePath: { eq: "Graphics/TopPage/Scenario_Kuzen-Support.png"}) {
+      publicURL
+    }
+    introKuzenWorkImage: file(relativePath: { eq: "Graphics/TopPage/Scenario_Kuzen-Work.png"}) {
+      publicURL
+    }
+  }
+`;
+
+const Styles = {};
+Styles.main = css`
+  &__ic-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > *:not(:last-child) {
+      margin: 0 0 ${styles.baseScale(5.5)};
+    }
+  }
+
+
+  ${styles.mq.tabletAndAbove} {
+    &__ic-grid {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      & > *:not(:last-child) {
+        margin: 0;
+      }
+    }
+  }
+
+
+  ${styles.mq.pcAndAbove} {
+  }
+`;
+Styles.icGrid = Styles.main + '__ic-grid';
+
+
+/* -------------------- Top -------------------- */
+const Top = ({
+  title,
+  subTitle,
+  buttonLabel,
+  onClick
+}) => {
+  return (
+    <div className={tStyles.main}>
+      <h1 className={tStyles.title}>
+        {title}
+      </h1>
+      <p className={tStyles.subTitle}>
+        {subTitle}
+      </p>
+      <Button
+        className={tStyles.button}
+        type='white-outline'
+        label={buttonLabel}
+        onClick={onClick}
+      />
+    </div>
+  );
+};
+
+const tStyles = {};
+tStyles.main = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    ${styles.fonts.bold}
+    font-size: ${styles.baseScale(4)};
+  }
+  &__sub-title {
+    font-size: ${styles.baseScale(2)};
+  }
+  &__title, &__sub-title {
+    margin-bottom: ${styles.baseScale(4)};
+    color: ${C.COLORS.WHITE};
+  }
+  &__button {
+    height: ${styles.baseScale(5)};
+    padding: 0 ${styles.baseScale(4)};
+    font-size: ${styles.baseScale(2)};
+    border-radius: ${styles.baseScale(2.5)};
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    &__title {
+      font-size: ${styles.baseScale(5.5)};
+    }
+    &__sub-title {
+      font-size: ${styles.baseScale(2.25)};
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    &__title {
+      font-size: ${styles.baseScale(7.5)};
+    }
+    &__sub-title {
+      font-size: ${styles.baseScale(3.25)};
+    }
+    &__title, &__sub-title {
+      margin-bottom: ${styles.baseScale(5)};
+    }
+    &__button {
+      height: ${styles.baseScale(9)};
+      padding: 0 ${styles.baseScale(5)};
+      font-size: ${styles.baseScale(2.75)};
+      border-radius: ${styles.baseScale(4.5)};
+    }
+  }
+`;
+tStyles.title = tStyles.main + '__title';
+tStyles.subTitle = tStyles.main + '__sub-title';
+tStyles.button = tStyles.main + '__button';
+
+const bgStyles = {};
+bgStyles.main = css`
+  display: flex;
+  justify-content: center;
+  margin-bottom: ${styles.scl(3.5)};
+
+  & > * {
+    flex: 1;
+    max-width: 100px;
+    &:not(:last-child) {
+      margin-right: ${styles.scl(3)};
+    }
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    display: none;
+  }
+`;
+
+
+/* -------------------- Section -------------------- */
+const Section = ({
+  className = '',
+  ...rest
+}) => {
+  return (
+    <section className={styles.cn([sStyles.main, className])} {...rest} />
+  );
+};
+
+Section.Title = ({
+  component: Component = 'h1',
+  className = '',
+  ...rest
+}) => {
+  return (
+    <Component className={styles.cn([sStyles.title, className])} {...rest} />
+  );
+};
+
+const sStyles = {};
+sStyles.main = css`
+  padding: ${styles.baseScale(7)} 0;
+  &__title {
+    ${styles.fonts.bold}
+    margin: 0 auto ${styles.baseScale(2)};
+    font-size: ${styles.baseScale(2.5)};
+    line-height: ${styles.baseScale(4.75)};
+    color: ${C.COLORS.TAUPE};
+    text-align: center;
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    &__title {
+      margin: 0 auto ${styles.baseScale(5)};
+      font-size: ${styles.baseScale(3.5)};
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    &__title {
+      margin: 0 auto ${styles.baseScale(5)};
+      font-size: ${styles.baseScale(4)};
+    }
+  }
+`;
+sStyles.title = sStyles.main + '__title';
+
+
+/* -------------------- IntroductionCard -------------------- */
+const IntroductionCard = ({
+  catchphrase,
+  imageUrl,
+  title,
+  points,
+  to
+}) => {
+  return (
+    <div className={icStyles.main}>
+      <div className={icStyles.catchphrase}>
+        {catchphrase}
+      </div>
+      <div className={icStyles.img}>
+        <img src={imageUrl} />
+      </div>
+      <div className={icStyles.title}>
+        {title}
+      </div>
+      <div className={icStyles.pointsWrapper}>
+        <dl className={icStyles.points}>
+          {_.map(points, (p, i) => (
+            <dd key={i}>
+              <SvgIcon name='Tick'/>
+              <span>{p}</span>
+            </dd>
+          ))}
+        </dl>
+      </div>
+      <Button
+        type='secondary-outline'
+        label='詳しく知る'
+        block
+        className={icStyles.button}
+        onClick={() => navigate(to)}
+      />
+    </div>
+  );
+};
+
+const icStyles = {};
+icStyles.main = css`
+  width: 280px;
+
+  &__catchphrase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: ${styles.baseScale(8.5)};
+    margin-bottom: ${styles.baseScale(5)};
+    border: 3px solid ${C.COLORS.LAVENDER_INDIGO};
+    color: ${C.COLORS.LAVENDER_INDIGO};
+    font-size: ${styles.baseScale(2)};
+    text-align: center;
+    white-space: pre;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      border-top: ${styles.baseScale(1.5)} solid ${C.COLORS.LAVENDER_INDIGO};
+      border-left: ${styles.baseScale(1.5)} solid transparent;
+      border-right: ${styles.baseScale(1.5)} solid transparent;
+      transform: translateX(-50%);
+    }
+  }
+  &__img {
+    display: flex;
+    padding: 0 ${styles.baseScale(3.5)};
+    margin-bottom: ${styles.baseScale(2.25)};
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &__title {
+    ${styles.fonts.bold}
+    margin-bottom: ${styles.baseScale(1.25)};
+    font-size: ${styles.baseScale(2.75)};
+    line-height: ${styles.baseScale(4)};
+    text-align: center;
+  }
+  &__points-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  &__points {
+    margin-bottom: ${styles.baseScale(2.5)};
+    & > * {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: ${styles.baseScale(1.5)};
+        font-size: ${styles.baseScale(2)};
+        line-height: ${styles.baseScale(3.75)};
+      }
+      svg {
+        width: ${styles.baseScale(2)};
+        height: ${styles.baseScale(2)};
+        path {
+          fill: ${C.COLORS.LAVENDER_INDIGO};
+        }
+      }
+    }
+  }
+  &__button {
+    font-size: ${styles.baseScale(1.75)};
+  }
+
+
+  ${styles.mq.tabletAndAbove} {
+    width: 210px;
+    &__catchphrase {
+      height: ${styles.baseScale(9.5)};
+      font-size: ${styles.baseScale(1.75)};
+      line-height: ${styles.baseScale(3)};
+      margin-bottom: ${styles.baseScale(1.75)};
+    }
+    &__img {
+      height: 146px;
+      padding: 0;
+    }
+    &__title {
+      margin-bottom: ${styles.baseScale(1)};
+      font-size: ${styles.baseScale(2.25)};
+      line-height: ${styles.baseScale(4)};
+    }
+    &__points {
+      margin-bottom: ${styles.baseScale(3)};
+      & > * {
+        span {
+          font-size: ${styles.baseScale(1.5)};
+          line-height: ${styles.baseScale(2.75)};
+        }
+      }
+    }
+    &__button {
+      height: ${styles.baseScale(3)};
+      font-size: ${styles.baseScale(1.75)};
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    width: 314px;
+    &__catchphrase {
+      height: ${styles.baseScale(14)};
+      font-size: ${styles.baseScale(2.75)};
+      line-height: ${styles.baseScale(3.5)};
+      margin-bottom: ${styles.baseScale(4)};
+    }
+    &__img {
+      height: 230px;
+      padding: 0;
+    }
+    &__title {
+      margin-bottom: ${styles.baseScale(1.5)};
+      font-size: ${styles.baseScale(3.25)};
+    }
+    &__points {
+      margin-bottom: ${styles.baseScale(5)};
+      & > * {
+        span {
+          font-size: ${styles.baseScale(2.25)};
+          line-height: ${styles.baseScale(3.75)};
+        }
+      }
+    }
+    &__button {
+      height: ${styles.baseScale(5)};
+      font-size: ${styles.baseScale(2.25)};
+    }
+  }
+`;
+icStyles.catchphrase = icStyles.main + '__catchphrase';
+icStyles.img = icStyles.main + '__img';
+icStyles.title = icStyles.main + '__title';
+icStyles.pointsWrapper = icStyles.main + '__points-wrapper';
+icStyles.points = icStyles.main + '__points';
+icStyles.button = icStyles.main + '__button';

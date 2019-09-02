@@ -76,6 +76,7 @@ export const Footer = ({
             <Anchor
               className={Styles.anchor}
               invert
+              to={paths.contact}
               children={t('contact')}
             />
           </div>

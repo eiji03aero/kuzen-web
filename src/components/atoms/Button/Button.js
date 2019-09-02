@@ -8,6 +8,7 @@ export const Button = ({
   type,
   size,
   rectangle,
+  block,
   className,
   label,
   icon,
@@ -15,11 +16,12 @@ export const Button = ({
   onClick,
 }) => {
   const buttonClassName = styles.cn([
+    className,
     Styles.main,
     `${Styles.main}--size-${size}`,
     `${Styles.main}--type-${type}`,
     rectangle && `${Styles.main}--is-rectangle`,
-    className
+    block && `${Styles.main}--is-block`,
   ]);
 
   return (
@@ -40,6 +42,7 @@ Button.defaultProps = {
   type: 'default',
   size: 'default',
   rectangle: false,
+  block: false,
   className: '',
   component: 'button'
 };
@@ -53,6 +56,26 @@ Styles.main = css`
 
 
   &--type-default {}
+  &--type-secondary {
+    background-color: ${C.COLORS.LAVENDER_INDIGO};
+    border: none;
+    color: ${C.COLORS.WHITE};
+    &:hover {
+      background-color: ${C.COLORS.WHITE};
+      border: 1px solid ${C.COLORS.LAVENDER_INDIGO};
+      color: ${C.COLORS.LAVENDER_INDIGO};
+    }
+  }
+  &--type-secondary-outline {
+    background-color: transparent;
+    border: 1px solid ${C.COLORS.LAVENDER_INDIGO};
+    color: ${C.COLORS.LAVENDER_INDIGO};
+    &:hover {
+      background-color: ${C.COLORS.LAVENDER_INDIGO};
+      border: none;
+      color: ${C.COLORS.WHITE};
+    }
+  }
   &--type-white {
     background-color: ${C.COLORS.WHITE};
     border: none;
@@ -107,5 +130,9 @@ Styles.main = css`
 
   &--is-rectangle {
     border-radius: 0 !important;
+  }
+
+  &--is-block {
+    width: 100%;
   }
 `;

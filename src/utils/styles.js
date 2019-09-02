@@ -12,6 +12,9 @@ export const baseScale = (value, option) => {
   return `${val}${opt.unit}`;
 };
 
+export const mqCond = {};
+mqCond.tabletAndAbove = `(min-width: ${C.BREAK_POINTS.TABLET}px)`;
+
 export const mq = {};
 mq.mobileOnly =
   `@media screen and (max-width: ${C.BREAK_POINTS.TABLET}px)`;

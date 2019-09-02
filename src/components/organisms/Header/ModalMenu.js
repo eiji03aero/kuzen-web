@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from 'gatsby';
 import { useTranslation } from 'react-i18next';
 import { css } from 'emotion';
 
@@ -153,6 +154,7 @@ export const ModalMenu = ({
             type='white'
             size='medium'
             label={t('contact')}
+            onClick={() => navigate(paths.contact)}
           />
           <Button
             className={buttonClassName}
