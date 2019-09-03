@@ -15,10 +15,12 @@ import Layout from "../components/layout";
 
 import * as C from '../primitives';
 import { styles } from '../utils';
+import { useMedia } from '../hooks';
 import { paths } from '../paths.js';
 
 export default ({data}) => {
   const { t } = useTranslation(['common', 'index']);
+  const mediaQuery = useMedia();
 
   const sources = [
     data.mobileImage.childImageSharp.fluid,
@@ -51,8 +53,8 @@ export default ({data}) => {
         }
       />
 
-      <Container>
-        <Section>
+      <Section>
+        <Container>
           <Section.Title component='h2'>
             {t('index:usecases.title')}
           </Section.Title>
@@ -78,27 +80,38 @@ export default ({data}) => {
           </div>
           <div className={Styles.icGrid}>
             <IntroductionCard
+              level='h3'
               catchphrase={t('index:usecases.kuzen-engage.catchphrase')}
               imageUrl={data.introKuzenEngageImage.publicURL}
-              title={t('common:kuzen-engage')}
+              title={t('common:services.kuzen-engage')}
               points={t('index:usecases.kuzen-engage.points', {returnObjects: true})}
+              buttonLabel={t('index:usecases.read-more')}
+              isMobile={mediaQuery.mobile}
             />
             <IntroductionCard
+              level='h3'
               catchphrase={t('index:usecases.kuzen-support.catchphrase')}
               imageUrl={data.introKuzenSupportImage.publicURL}
-              title={t('common:kuzen-support')}
+              title={t('common:services.kuzen-support')}
               points={t('index:usecases.kuzen-support.points', {returnObjects: true})}
+              buttonLabel={t('index:usecases.read-more')}
+              isMobile={mediaQuery.mobile}
             />
             <IntroductionCard
+              level='h3'
               catchphrase={t('index:usecases.kuzen-work.catchphrase')}
               imageUrl={data.introKuzenWorkImage.publicURL}
-              title={t('common:kuzen-work')}
+              title={t('common:services.kuzen-work')}
               points={t('index:usecases.kuzen-work.points', {returnObjects: true})}
+              buttonLabel={t('index:usecases.read-more')}
+              isMobile={mediaQuery.mobile}
             />
           </div>
-        </Section>
+        </Container>
+      </Section>
 
-        <Section>
+      <Section>
+        <Container>
           <Section.TitleLogo />
           <Section.Title className={atStyles.main} component='h2'>
             <Html
@@ -116,23 +129,43 @@ export default ({data}) => {
           </Section.Title>
           <Img className={styles.show.mobileOnly} imgStyle={{objectFit: 'fit'}} fluid={clientLogosMobileFluid} />
           <Img className={styles.show.tabletAndAbove} imgStyle={{objectFit: 'fit'}} fluid={clientLogosWebFluid} />
-        </Section>
-      </Container>
+        </Container>
+      </Section>
 
-      <div style={{height: 2000, backgroundColor: 'blue', padding: 40}}>
-        <div className={css`
-          padding-top: 0;
-          @media screen and (min-width: 768px) {
-            padding-top: 60px;
-          }
-          @media screen and (min-width: 1024px) {
-            padding-top: 120px;
-          }
-          `}
-          style={{fontSize: 40, color: 'white'}}>
-          <h1>Title</h1>
-        </div>
-      </div>
+      <Section type={mediaQuery.mobile ? 'white' : 'default'}>
+        <Container>
+          <Section.TitleLogo />
+          <Section.Title className={atStyles.main} component='h2'>
+            KUZENが選ばれる理由
+          </Section.Title>
+          <div className={ecGridStyles.main}>
+            <ExplanationCard
+              level='h3'
+              imageUrl={data.whyKuzen1.publicURL}
+              title={t('index:why-kuzen.1.title')}
+              description={t('index:why-kuzen.1.description')}
+            />
+            <ExplanationCard
+              level='h3'
+              imageUrl={data.whyKuzen2.publicURL}
+              title={t('index:why-kuzen.2.title')}
+              description={t('index:why-kuzen.2.description')}
+            />
+            <ExplanationCard
+              level='h3'
+              imageUrl={data.whyKuzen3.publicURL}
+              title={t('index:why-kuzen.3.title')}
+              description={t('index:why-kuzen.3.description')}
+            />
+            <ExplanationCard
+              level='h3'
+              imageUrl={data.whyKuzen4.publicURL}
+              title={t('index:why-kuzen.4.title')}
+              description={t('index:why-kuzen.4.description')}
+            />
+          </div>
+        </Container>
+      </Section>
     </Layout>
   );
 };
@@ -185,6 +218,27 @@ export const query = graphql`
           ...GatsbyImageSharpFluid
         }
       }
+    }
+
+    whyKuzen1: file(
+      relativePath: { eq: "Graphics/TopPage/Why-Kuzen_Reason 1.png"}
+    ) {
+      publicURL
+    }
+    whyKuzen2: file(
+      relativePath: { eq: "Graphics/TopPage/Why-Kuzen_Reason 2.png"}
+    ) {
+      publicURL
+    }
+    whyKuzen3: file(
+      relativePath: { eq: "Graphics/TopPage/Why-Kuzen_Reason 3.png"}
+    ) {
+      publicURL
+    }
+    whyKuzen4: file(
+      relativePath: { eq: "Graphics/TopPage/Why-Kuzen_Reason 4.png"}
+    ) {
+      publicURL
     }
   }
 `;
@@ -365,10 +419,16 @@ bgStyles.main = css`
 /* -------------------- Section -------------------- */
 const Section = ({
   className = '',
+  type = 'default',
   ...rest
 }) => {
+  const mainClassName = styles.cn([
+    className,
+    sStyles.main,
+    type && `${sStyles.main}--type-${type}`
+  ]);
   return (
-    <section className={styles.cn([className, sStyles.main])} {...rest}/>
+    <section className={mainClassName} {...rest}/>
   );
 };
 
@@ -408,8 +468,14 @@ sStyles.main = css`
     color: ${C.COLORS.TAUPE};
     text-align: center;
   }
+  &--type-default { }
+  &--type-white {
+    background-color: ${C.COLORS.GHOST_WHITE}
+  }
+
 
   ${styles.mq.tabletAndAbove} {
+    padding: ${styles.baseScale(8)} 0;
     &__title {
       margin: 0 auto ${styles.baseScale(5)};
       font-size: ${styles.baseScale(3.5)};
@@ -417,6 +483,7 @@ sStyles.main = css`
   }
 
   ${styles.mq.pcAndAbove} {
+    padding: ${styles.baseScale(10)} 0;
     &__title-logo {
       display: flex;
       justify-content: center;
@@ -438,25 +505,30 @@ sStyles.title = sStyles.main + '__title';
 
 /* -------------------- IntroductionCard -------------------- */
 const IntroductionCard = ({
+  level: TitleComponent = 'h1',
   catchphrase,
   imageUrl,
   title,
   points,
-  to
+  buttonLabel,
+  to,
+  isMobile
 }) => {
   return (
-    <div className={icStyles.main}>
-      <div className={icStyles.catchphrase}>
-        {catchphrase}
-      </div>
+    <article className={icStyles.main}>
+      <TitleComponent
+        className={icStyles.catchphrase}
+        children={catchphrase}
+      />
       <div className={icStyles.img}>
         <img src={imageUrl} />
       </div>
-      <div className={icStyles.title}>
-        {title}
-      </div>
       <div className={icStyles.pointsWrapper}>
         <dl className={icStyles.points}>
+          <dt
+            className={icStyles.title}
+            children={title}
+          />
           {_.map(points, (p, i) => (
             <dd key={i}>
               <SvgIcon name='Tick'/>
@@ -466,13 +538,15 @@ const IntroductionCard = ({
         </dl>
       </div>
       <Button
-        type='secondary-outline'
-        label='詳しく知る'
+        type={isMobile
+          ? 'secondary'
+          : 'secondary-outline'}
+        label={buttonLabel}
         block
         className={icStyles.button}
         onClick={() => navigate(to)}
       />
-    </div>
+    </article>
   );
 };
 
@@ -515,10 +589,11 @@ icStyles.main = css`
   }
   &__title {
     ${styles.fonts.bold}
+    display: flex;
+    justify-content: center;
     margin-bottom: ${styles.baseScale(1.25)};
     font-size: ${styles.baseScale(2.75)};
     line-height: ${styles.baseScale(4)};
-    text-align: center;
   }
   &__points-wrapper {
     display: flex;
@@ -617,6 +692,117 @@ icStyles.title = icStyles.main + '__title';
 icStyles.pointsWrapper = icStyles.main + '__points-wrapper';
 icStyles.points = icStyles.main + '__points';
 icStyles.button = icStyles.main + '__button';
+
+/* -------------------- ExplanationCard -------------------- */
+const ExplanationCard = ({
+  level: TitleComponent = 'h1',
+  imageUrl,
+  title,
+  description
+}) => {
+  return (
+    <article className={ecStyles.main}>
+      <img src={imageUrl} className={ecStyles.img} />
+      <TitleComponent
+        className={ecStyles.title}
+        children={title}
+      />
+      <p
+        className={ecStyles.description}
+        children={description}
+      />
+    </article>
+  );
+};
+const ecStyles = {};
+ecStyles.main = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+  &__img {
+    width 270px;
+    margin-bottom: ${styles.scl(3)};
+  }
+  &__title {
+    ${styles.fonts.bold};
+    font-size: ${styles.scl(2.25)};
+    line-height: ${styles.scl(4)};
+    margin-bottom: ${styles.scl(1.25)};
+  }
+  &__description {
+    ${styles.fonts.regular}
+    font-size: ${styles.scl(1.75)};
+    line-height: ${styles.scl(3.5)};
+    text-align: left;
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    width: 290px;
+    &__img {
+      width: 100%;
+    }
+    &__title {
+      margin-bottom: ${styles.scl(0.5)};
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    width: 440px;
+    &__img {
+      margin-bottom: ${styles.scl(4.5)};
+    }
+    &__title {
+      font-size: ${styles.scl(3.25)};
+      margin-bottom: ${styles.scl(1.5)};
+    }
+    &__description {
+      font-size: ${styles.scl(2.25)};
+      line-height: ${styles.scl(4)};
+    }
+  }
+`;
+ecStyles.img = ecStyles.main + '__img';
+ecStyles.title = ecStyles.main + '__title';
+ecStyles.description = ecStyles.main + '__description';
+
+const ecGridStyles = {};
+ecGridStyles.main = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > * {
+    margin-bottom: ${styles.scl(5)};
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    & > * {
+      margin-right: ${styles.scl(5)};
+      margin-bottom: ${styles.scl(5)};
+      &:nth-of-type(2n) {
+        margin-right: 0;
+      }
+      &:not(:nth-of-type(-n+2)) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    & > * {
+      margin-right: ${styles.scl(7.5)};
+      margin-bottom: ${styles.scl(6)};
+    }
+  }
+`;
+
+
 
 const Html = ({
   component: Component = 'div',

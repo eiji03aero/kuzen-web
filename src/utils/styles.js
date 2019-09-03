@@ -15,6 +15,8 @@ export const scl = baseScale;
 
 export const mqCond = {};
 mqCond.mobileOnly = `(max-width: ${C.BREAK_POINTS.TABLET}px)`;
+mqCond.tabletOnly = `(min-width: ${C.BREAK_POINTS.TABLET}px) and (max-width: ${C.BREAK_POINTS.PC}px)`;
+mqCond.pcOnly = `(min-width: ${C.BREAK_POINTS.PC}px)`;
 mqCond.tabletAndAbove = `(min-width: ${C.BREAK_POINTS.TABLET}px)`;
 
 export const mq = {};
@@ -68,6 +70,7 @@ show.tabletAndAbove = css`
 `;
 
 export const fonts = {
+  regular: `font-family: '${C.FONT_FAMILY.NOTO_SANS_JP_REGULAR}';`,
   medium: `font-family: '${C.FONT_FAMILY.NOTO_SANS_JP_MEDIUM}';`,
   bold: `font-family: '${C.FONT_FAMILY.NOTO_SANS_JP_BOLD}';`,
 };

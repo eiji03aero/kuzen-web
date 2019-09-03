@@ -1,11 +1,13 @@
 import { injectGlobal } from 'emotion';
 
+import * as C from './primitives';
 import { styles } from './utils';
 
 export const injectGlobalStyle = () => injectGlobal`
   html, body {
     ${styles.fonts.medium}
     margin: 0;
+    color: ${C.COLORS.TAUPE};
   }
 
   * {

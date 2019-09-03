@@ -13,6 +13,7 @@ export const HEADER_HEIGHT = {
 };
 
 export const COLORS = {
+  GHOST_WHITE: 'rgba(248, 250, 255, 1)',
   WHITE: '#ffffff',
   DIM_GREY: 'rgba(0, 0, 0, 0.16)',
   TAUPE: 'rgba(58, 55, 56, 1)',
@@ -22,6 +23,7 @@ export const COLORS = {
 };
 
 export const FONT_FAMILY = {
+  NOTO_SANS_JP_REGULAR: 'Noto Sans JP Regular',
   NOTO_SANS_JP_MEDIUM: 'Noto Sans JP Medium',
   NOTO_SANS_JP_BOLD: 'Noto Sans JP Bold',
 };
