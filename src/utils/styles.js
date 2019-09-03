@@ -11,8 +11,10 @@ export const baseScale = (value, option) => {
   const val = value * C.BASE_SCALE + opt.modifier;
   return `${val}${opt.unit}`;
 };
+export const scl = baseScale;
 
 export const mqCond = {};
+mqCond.mobileOnly = `(max-width: ${C.BREAK_POINTS.TABLET}px)`;
 mqCond.tabletAndAbove = `(min-width: ${C.BREAK_POINTS.TABLET}px)`;
 
 export const mq = {};

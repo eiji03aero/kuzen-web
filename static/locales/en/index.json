@@ -30,5 +30,10 @@
         "社内問い合わせ内容の可視化"
       ]
     }
+  },
+  "case-studies": {
+    "title-1": "<strong>{{numberOfCompanies}}</strong>の大手企業",
+    "title-2": "に導入実績あり",
+    "number-of-companies": "100社以上"
   }
 }

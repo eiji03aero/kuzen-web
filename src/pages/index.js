@@ -28,6 +28,15 @@ export default ({data}) => {
     }
   ];
 
+  const clientLogosMobileFluid = _.assign({}, data.clientLogosMobile.childImageSharp.fluid, {
+    presentationWidth: '100%',
+    presentationHeight: 'auto'
+  });
+  const clientLogosWebFluid = _.assign({}, data.clientLogosWeb.childImageSharp.fluid, {
+    presentationWidth: '100%',
+    presentationHeight: 'auto'
+  });
+
   return (
     <Layout>
       <TopBanner
@@ -88,6 +97,26 @@ export default ({data}) => {
             />
           </div>
         </Section>
+
+        <Section>
+          <Section.TitleLogo />
+          <Section.Title className={atStyles.main} component='h2'>
+            <Html
+              compoennt='span'
+              className={atStyles.breakable}
+              children={t('index:case-studies.title-1', {
+                numberOfCompanies: t('index:case-studies.number-of-companies')
+              })}
+            />
+            <Html
+              compoennt='span'
+              className={atStyles.breakable}
+              children={t('index:case-studies.title-2')}
+            />
+          </Section.Title>
+          <Img className={styles.show.mobileOnly} imgStyle={{objectFit: 'fit'}} fluid={clientLogosMobileFluid} />
+          <Img className={styles.show.tabletAndAbove} imgStyle={{objectFit: 'fit'}} fluid={clientLogosWebFluid} />
+        </Section>
       </Container>
 
       <div style={{height: 2000, backgroundColor: 'blue', padding: 40}}>
@@ -110,9 +139,11 @@ export default ({data}) => {
 
 export const query = graphql`
   query {
-    mobileImage: file(relativePath: { eq: "Backgrounds/Phone/Background_TopPage_Phone.png" }) {
+    mobileImage: file(
+      relativePath: { eq: "Backgrounds/Phone/Background_TopPage_Phone.png" }
+    ) {
       childImageSharp {
-        fluid(maxWidth: 1000, quality: 100) {
+        fluid(maxWidth: 768, quality: 100) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -135,6 +166,26 @@ export const query = graphql`
     introKuzenWorkImage: file(relativePath: { eq: "Graphics/TopPage/Scenario_Kuzen-Work.png"}) {
       publicURL
     }
+
+
+    clientLogosMobile: file(
+      relativePath: { eq: "Client Logos/Client-Logos-All-in-One/ClientLogos_Phone.png" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 768, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    clientLogosWeb: file(
+      relativePath: { eq: "Client Logos/Client-Logos-All-in-One/ClientLogos_Web.png" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 2000, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
   }
 `;
 
@@ -147,6 +198,9 @@ Styles.main = css`
     & > *:not(:last-child) {
       margin: 0 0 ${styles.baseScale(5.5)};
     }
+  }
+
+  &__client-logos {
   }
 
 
@@ -166,7 +220,47 @@ Styles.main = css`
   }
 `;
 Styles.icGrid = Styles.main + '__ic-grid';
+Styles.clientLogos = Styles.main + '__client-logos';
 
+const atStyles = {};
+atStyles.main = css`
+  ${styles.fonts.bold}
+  font-size: ${styles.baseScale(2.75)};
+  line-height: ${styles.baseScale(4)};
+  &__breakable {
+    display: block;
+  }
+  strong {
+    margin-right: ${styles.baseScale(1)};
+    color: ${C.COLORS.VERDIGRIS};
+    font-size: ${styles.baseScale(3.25)};
+    line-height: ${styles.baseScale(4)};
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    font-size: ${styles.baseScale(3)};
+    line-height: ${styles.baseScale(4.5)};
+    &__breakable {
+      display: inline;
+    }
+    strong {
+      color: ${C.COLORS.VERDIGRIS};
+      font-size: ${styles.baseScale(4.5)};
+      line-height: ${styles.baseScale(4.5)};
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    font-size: ${styles.baseScale(3.25)};
+    line-height: ${styles.baseScale(4.5)};
+    strong {
+      font-size: ${styles.baseScale(5.25)};
+      line-height: ${styles.baseScale(4.5)};
+    }
+  }
+`;
+atStyles.breakable = atStyles.main + '__breakable';
+atStyles.accent = atStyles.main + '__accent';
 
 /* -------------------- Top -------------------- */
 const Top = ({
@@ -274,7 +368,19 @@ const Section = ({
   ...rest
 }) => {
   return (
-    <section className={styles.cn([sStyles.main, className])} {...rest} />
+    <section className={styles.cn([className, sStyles.main])} {...rest}/>
+  );
+};
+
+Section.TitleLogo = ({
+  className = '',
+  children,
+  ...rest
+}) => {
+  return (
+    <div className={styles.cn([className, sStyles.titleLogo])} {...rest}>
+      <img src='Icons/Title-Icon.png' alt='title icon' />
+    </div>
   );
 };
 
@@ -284,13 +390,16 @@ Section.Title = ({
   ...rest
 }) => {
   return (
-    <Component className={styles.cn([sStyles.title, className])} {...rest} />
+    <Component className={styles.cn([className, sStyles.title])} {...rest} />
   );
 };
 
 const sStyles = {};
 sStyles.main = css`
-  padding: ${styles.baseScale(7)} 0;
+  padding: ${styles.baseScale(5)} 0;
+  &__title-logo {
+    display: none;
+  }
   &__title {
     ${styles.fonts.bold}
     margin: 0 auto ${styles.baseScale(2)};
@@ -308,12 +417,22 @@ sStyles.main = css`
   }
 
   ${styles.mq.pcAndAbove} {
+    &__title-logo {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto ${styles.baseScale(5)};
+      img {
+        width: ${styles.baseScale(8.5)};
+        height: ${styles.baseScale(8.75)};
+      }
+    }
     &__title {
       margin: 0 auto ${styles.baseScale(5)};
       font-size: ${styles.baseScale(4)};
     }
   }
 `;
+sStyles.titleLogo = sStyles.main + '__title-logo';
 sStyles.title = sStyles.main + '__title';
 
 
@@ -498,3 +617,11 @@ icStyles.title = icStyles.main + '__title';
 icStyles.pointsWrapper = icStyles.main + '__points-wrapper';
 icStyles.points = icStyles.main + '__points';
 icStyles.button = icStyles.main + '__button';
+
+const Html = ({
+  component: Component = 'div',
+  children,
+  ...rest
+}) => {
+  return <Component dangerouslySetInnerHTML={{__html: children}} { ...rest } />;
+};
