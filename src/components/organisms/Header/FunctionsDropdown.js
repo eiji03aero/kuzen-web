@@ -16,7 +16,7 @@ export const FunctionsDropdown = ({
       {...rest}
       children={
         <div className={Styles.body}>
-          <div style={{marginRight: styles.baseScale(2)}}>
+          <div style={{marginRight: styles.scl(2)}}>
             <DropdownChoice size='wide' leading={<SvgIcon name='Feature_Mini_1_Intuitive_UI' />} label={t('functions.intuitive-ui')} />
             <DropdownChoice size='wide' leading={<SvgIcon name='Feature_Mini_2_Scenario' />} label={t('functions.scenario')} />
             <DropdownChoice size='wide' leading={<SvgIcon name='Feature_Mini_3_Customizable_Contents' />} label={t('functions.customizable-contents')} />
@@ -41,5 +41,5 @@ export const FunctionsDropdown = ({
 const Styles = {};
 Styles.body = css`
   display: flex;
-  padding: 0 ${styles.baseScale(.5)};
+  padding: 0 ${styles.scl(.5)};
 `;

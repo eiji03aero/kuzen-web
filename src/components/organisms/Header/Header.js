@@ -157,7 +157,7 @@ Styles.main = css`
   left: 0;
   right: 0;
   height: ${C.HEADER_HEIGHT.MOBILE}px;
-  padding: 0 ${styles.baseScale(3)};
+  padding: 0 ${styles.scl(3)};
   background-color: ${C.COLORS.WHITE};
   box-shadow: 0 2px 12px ${C.COLORS.DIM_GREY};
   z-index: 1;
@@ -171,7 +171,7 @@ Styles.main = css`
     margin-left: auto;
 
     & > * {
-      margin-left: ${styles.baseScale(3)};
+      margin-left: ${styles.scl(3)};
     }
   }
 
@@ -182,13 +182,13 @@ Styles.main = css`
 
   &__company-logo {
     content: url("Icons/Kuzen_Logo_Standard_Color.svg");
-    width: ${styles.baseScale(8)};
-    height: ${styles.baseScale(2.25)};
+    width: ${styles.scl(8)};
+    height: ${styles.scl(2.25)};
   }
 
   &__menu-icon {
-    width: ${styles.baseScale(4)};
-    height: ${styles.baseScale(4)};
+    width: ${styles.scl(4)};
+    height: ${styles.scl(4)};
     path {
       fill: ${C.COLORS.TAUPE};
     }
@@ -201,7 +201,7 @@ Styles.main = css`
 
   ${styles.mq.tabletAndAbove} {
     height: ${C.HEADER_HEIGHT.TABLET}px;
-    padding: 0 ${styles.baseScale(4)};
+    padding: 0 ${styles.scl(4)};
 
     &__company-logo { }
 
@@ -224,17 +224,17 @@ Styles.main = css`
 
 
   ${styles.mq.pcAndAbove} {
-    padding: 0 ${styles.baseScale(10)};
+    padding: 0 ${styles.scl(10)};
     &__right {
-      padding-top: ${styles.baseScale(1.5)};
+      padding-top: ${styles.scl(1.5)};
       & > * {
-        margin-left: ${styles.baseScale(5)};
+        margin-left: ${styles.scl(5)};
       }
     }
 
     &__company-logo {
-      width: ${styles.baseScale(10.5)};
-      height: ${styles.baseScale(3)};
+      width: ${styles.scl(10.5)};
+      height: ${styles.scl(3)};
     }
 
     &__menu-icon { }

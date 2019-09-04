@@ -7,7 +7,7 @@ import OpenInNewIcon from 'mdi-react/OpenInNewIcon';
 import PhoneIcon from 'mdi-react/PhoneIcon';
 import EmailIcon from 'mdi-react/EmailIcon';
 
-import { Anchor, Button, DropdownChoice, SvgIcon } from '../../atoms';
+import { Anchor, Button, Container, DropdownChoice, SvgIcon } from '../../atoms';
 import { AnchorDropdown } from '../../molecules';
 
 import * as C from '../../../primitives';
@@ -23,126 +23,128 @@ export const Footer = ({
 
   return (
     <footer className={Styles.main}>
-      <div className={Styles.content}>
-        <div className={Styles.links}>
-          <div>
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('services.kuzen-engage')}
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('services.kuzen-support')}
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('services.kuzen-work')}
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('functions.title')}
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('case-studies')}
-            />
+      <Container>
+        <div className={Styles.content}>
+          <div className={Styles.links}>
+            <div>
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('services.kuzen-engage')}
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('services.kuzen-support')}
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('services.kuzen-work')}
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('functions.title')}
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('case-studies')}
+              />
+            </div>
+            <div>
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={
+                  <>
+                    {t('about-company')}
+                    <OpenInNewIcon size={18} style={{marginLeft: styles.scl(1)}} />
+                  </>
+                }
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('recruit-reseller')}
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                children={t('news')}
+              />
+              <Anchor
+                className={Styles.anchor}
+                invert
+                to={paths.contact}
+                children={t('contact')}
+              />
+            </div>
           </div>
-          <div>
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={
-                <>
-                  {t('about-company')}
-                  <OpenInNewIcon size={18} style={{marginLeft: styles.baseScale(1)}} />
-                </>
-              }
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('recruit-reseller')}
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              children={t('news')}
-            />
-            <Anchor
-              className={Styles.anchor}
-              invert
-              to={paths.contact}
-              children={t('contact')}
-            />
-          </div>
+
+          <address className={Styles.address}>
+            <span className={Styles.companyName}>
+              株式会社コンシェルジュ
+            </span>
+
+            <span>
+              {'〒 101-0061'}
+            </span>
+
+            <span>
+              {'東京都千代田区神田三崎町3-8-5 千代田JEBL 6F'}
+            </span>
+
+            <span>
+              <PhoneIcon size={18} style={{marginRight: 8}} />
+              {'03-6910-0470 受付 10:00~18:00(平日)'}
+            </span>
+
+            <span>
+              <EmailIcon size={18} style={{marginRight: 8}} />
+              {'info@conciergeu.com'}
+            </span>
+
+            <div className={Styles.sns}>
+              <Button
+                size='fit'
+                icon={<SvgIcon name='SocialMedia_Facebook' />}
+              />
+              <Button
+                size='fit'
+                icon={<SvgIcon name='SocialMedia_Youtube' />}
+              />
+              <Button
+                size='fit'
+                icon={<SvgIcon name='SocialMedia_LinkedIn' />}
+              />
+            </div>
+          </address>
         </div>
 
-        <address className={Styles.address}>
-          <span className={Styles.companyName}>
-            株式会社コンシェルジュ
-          </span>
-
-          <span>
-            {'〒 101-0061'}
-          </span>
-
-          <span>
-            {'東京都千代田区神田三崎町3-8-5 千代田JEBL 6F'}
-          </span>
-
-          <span>
-            <PhoneIcon size={18} style={{marginRight: 8}} />
-            {'03-6910-0470 受付 10:00~18:00(平日)'}
-          </span>
-
-          <span>
-            <EmailIcon size={18} style={{marginRight: 8}} />
-            {'info@conciergeu.com'}
-          </span>
-
-          <div className={Styles.sns}>
-            <Button
-              size='fit'
-              icon={<SvgIcon name='SocialMedia_Facebook' />}
-            />
-            <Button
-              size='fit'
-              icon={<SvgIcon name='SocialMedia_Youtube' />}
-            />
-            <Button
-              size='fit'
-              icon={<SvgIcon name='SocialMedia_LinkedIn' />}
-            />
-          </div>
-        </address>
-      </div>
-
-      <div className={Styles.bottom}>
-        <span
-          className={Styles.bottomSpan}
-          children='Copyright 2019 by ConciergeU'
-        />
-        <span
-          className={Styles.bottomSpan}
-          children='|'
-        />
-        <Anchor
-          className={Styles.bottomSpan}
-          children='プライバシーポリシー'
-        />
-      </div>
+        <div className={Styles.bottom}>
+          <span
+            className={Styles.bottomSpan}
+            children='Copyright 2019 by ConciergeU'
+          />
+          <span
+            className={Styles.bottomSpan}
+            children='|'
+          />
+          <Anchor
+            className={Styles.bottomSpan}
+            children='プライバシーポリシー'
+          />
+        </div>
+      </Container>
     </footer>
   );
 };
 
 const Styles = {};
 Styles.main = css`
-  padding: ${styles.baseScale(5)} ${styles.baseScale(4)};
+  padding: ${styles.scl(5)} ${styles.scl(4)};
   background-color: ${C.COLORS.TAUPE};
 
   &__content {
@@ -153,7 +155,7 @@ Styles.main = css`
   &__links {
     display: flex;
     width: 100%;
-    margin-bottom: ${styles.baseScale(6)};
+    margin-bottom: ${styles.scl(6)};
 
     & > * {
       display: flex;
@@ -164,17 +166,17 @@ Styles.main = css`
   }
 
   &__anchor {
-    padding: ${styles.baseScale(1.75)} 0;
-    font-size: ${styles.baseScale(1.75)};
+    padding: ${styles.scl(1.75)} 0;
+    font-size: ${styles.scl(1.75)};
     path {
       fill: ${C.COLORS.MANATEE};
     }
   }
 
   &__address {
-    margin-bottom: ${styles.baseScale(5)};
-    font-size: ${styles.baseScale(1.75)};
-    line-height: ${styles.baseScale(3)};
+    margin-bottom: ${styles.scl(5)};
+    font-size: ${styles.scl(1.75)};
+    line-height: ${styles.scl(3)};
     color: ${C.COLORS.WHITE};
 
     span {
@@ -193,35 +195,35 @@ Styles.main = css`
 
   &__sns {
     display: flex;
-    margin-top: ${styles.baseScale(4)};
+    margin-top: ${styles.scl(4)};
     & > * {
-      margin-right: ${styles.baseScale(4)};
+      margin-right: ${styles.scl(4)};
     }
     svg {
-      width: ${styles.baseScale(4)};
-      height: ${styles.baseScale(4)};
+      width: ${styles.scl(4)};
+      height: ${styles.scl(4)};
     }
   }
 
   &__bottom {
     display: flex;
     justify-content: center;
-    padding: ${styles.baseScale(1)} 0;
+    padding: ${styles.scl(1)} 0;
     border-top: 1px solid ${C.COLORS.MANATEE};
 
     &__span {
       color: ${C.COLORS.MANATEE};
-      font-size: ${styles.baseScale(1.5)};
+      font-size: ${styles.scl(1.5)};
 
       &:not(:last-child) {
-        margin-right: ${styles.baseScale(2.5)};
+        margin-right: ${styles.scl(2.5)};
       }
     }
   }
 
 
   ${styles.mq.tabletAndAbove} {
-    padding: ${styles.baseScale(4.5)} ${styles.baseScale(7.5)};
+    padding: ${styles.scl(4.5)} ${styles.scl(7.5)};
     &__content {
       flex-direction: row;
       & > * {
@@ -234,10 +236,10 @@ Styles.main = css`
     &__address {
       max-width: 400px;
       margin-left: auto;
-      line-height: ${styles.baseScale(3.5)};
+      line-height: ${styles.scl(3.5)};
     }
     &__company-name {
-      line-height: ${styles.baseScale(4)};
+      line-height: ${styles.scl(4)};
     }
     &__bottom {
       justify-content: flex-start;

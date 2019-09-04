@@ -30,5 +30,11 @@
   "news": "News",
   "download-documents": "Download docs",
   "about-company": "Abount company",
-  "recruit-reseller": "Recruit reseller"
+  "recruit-reseller": "Recruit reseller",
+  "prompt-contact-section": {
+    "title-1": "あなたのサービスに合わせた",
+    "title-2": "適切な",
+    "title-3": "プランをご提案します",
+    "contact-us": "CONTACT US"
+  }
 }

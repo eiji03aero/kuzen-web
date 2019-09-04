@@ -85,28 +85,28 @@ Styles.main = css`
   position: relative;
 
   &__anchor {
-    padding: ${styles.baseScale(1)} 0;
+    padding: ${styles.scl(1)} 0;
     border-bottom: 1px solid transparent;
   }
 
   &__caret {
-    margin-left: ${styles.baseScale(.5)};
+    margin-left: ${styles.scl(.5)};
   }
 
   &__body {
     position: relative;
-    padding: ${styles.baseScale(1.5)} ${styles.baseScale(1.25)};
+    padding: ${styles.scl(1.5)} ${styles.scl(1.25)};
     background-color: ${C.COLORS.WHITE};
     box-shadow: 0 3px 18px rgba(0,0,0,0.16);
-    border-radius: ${styles.baseScale(.5)};
+    border-radius: ${styles.scl(.5)};
   }
 
   &__body__caret {
     position: absolute;
     border-top: none;
-    border-left: ${styles.baseScale(1.5)} solid transparent;
-    border-right: ${styles.baseScale(1.5)} solid transparent;
-    border-bottom: ${styles.baseScale(1.5)} solid ${C.COLORS.WHITE};
+    border-left: ${styles.scl(1.5)} solid transparent;
+    border-right: ${styles.scl(1.5)} solid transparent;
+    border-bottom: ${styles.scl(1.5)} solid ${C.COLORS.WHITE};
     left: 50%;
     transform: translateX(-50%);
     bottom: 100%;

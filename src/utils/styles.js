@@ -3,7 +3,7 @@ import { css } from 'emotion';
 
 import * as C from '../primitives';
 
-export const baseScale = (value, option) => {
+export const scl = (value, option) => {
   const opt = _.defaults(option || {}, {
     unit: 'px',
     modifier: 0
@@ -11,7 +11,6 @@ export const baseScale = (value, option) => {
   const val = value * C.BASE_SCALE + opt.modifier;
   return `${val}${opt.unit}`;
 };
-export const scl = baseScale;
 
 export const mqCond = {};
 mqCond.mobileOnly = `(max-width: ${C.BREAK_POINTS.TABLET}px)`;

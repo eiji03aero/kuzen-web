@@ -86,7 +86,6 @@ export default ({data}) => {
               title={t('common:services.kuzen-engage')}
               points={t('index:usecases.kuzen-engage.points', {returnObjects: true})}
               buttonLabel={t('index:usecases.read-more')}
-              isMobile={mediaQuery.mobile}
             />
             <IntroductionCard
               level='h3'
@@ -95,7 +94,6 @@ export default ({data}) => {
               title={t('common:services.kuzen-support')}
               points={t('index:usecases.kuzen-support.points', {returnObjects: true})}
               buttonLabel={t('index:usecases.read-more')}
-              isMobile={mediaQuery.mobile}
             />
             <IntroductionCard
               level='h3'
@@ -104,7 +102,6 @@ export default ({data}) => {
               title={t('common:services.kuzen-work')}
               points={t('index:usecases.kuzen-work.points', {returnObjects: true})}
               buttonLabel={t('index:usecases.read-more')}
-              isMobile={mediaQuery.mobile}
             />
           </div>
         </Container>
@@ -138,7 +135,7 @@ export default ({data}) => {
         <Container>
           <Section.TitleLogo />
           <Section.Title className={atStyles.main} component='h2'>
-            KUZENが選ばれる理由
+            {t('index:why-kuzen.title')}
           </Section.Title>
           <div className={ecGridStyles.main}>
             <ExplanationCard
@@ -252,7 +249,7 @@ Styles.main = css`
     flex-direction: column;
     align-items: center;
     & > *:not(:last-child) {
-      margin: 0 0 ${styles.baseScale(5.5)};
+      margin: 0 0 ${styles.scl(5.5)};
     }
   }
 
@@ -281,37 +278,37 @@ Styles.clientLogos = Styles.main + '__client-logos';
 const atStyles = {};
 atStyles.main = css`
   ${styles.fonts.bold}
-  font-size: ${styles.baseScale(2.75)};
-  line-height: ${styles.baseScale(4)};
+  font-size: ${styles.scl(2.75)};
+  line-height: ${styles.scl(4)};
   &__breakable {
     display: block;
   }
   strong {
-    margin-right: ${styles.baseScale(1)};
+    margin-right: ${styles.scl(1)};
     color: ${C.COLORS.VERDIGRIS};
-    font-size: ${styles.baseScale(3.25)};
-    line-height: ${styles.baseScale(4)};
+    font-size: ${styles.scl(3.25)};
+    line-height: ${styles.scl(4)};
   }
 
   ${styles.mq.tabletAndAbove} {
-    font-size: ${styles.baseScale(3)};
-    line-height: ${styles.baseScale(4.5)};
+    font-size: ${styles.scl(3)};
+    line-height: ${styles.scl(4.5)};
     &__breakable {
       display: inline;
     }
     strong {
       color: ${C.COLORS.VERDIGRIS};
-      font-size: ${styles.baseScale(4.5)};
-      line-height: ${styles.baseScale(4.5)};
+      font-size: ${styles.scl(4.5)};
+      line-height: ${styles.scl(4.5)};
     }
   }
 
   ${styles.mq.pcAndAbove} {
-    font-size: ${styles.baseScale(3.25)};
-    line-height: ${styles.baseScale(4.5)};
+    font-size: ${styles.scl(3.25)};
+    line-height: ${styles.scl(4.5)};
     strong {
-      font-size: ${styles.baseScale(5.25)};
-      line-height: ${styles.baseScale(4.5)};
+      font-size: ${styles.scl(5.25)};
+      line-height: ${styles.scl(4.5)};
     }
   }
 `;
@@ -351,46 +348,46 @@ tStyles.main = css`
 
   &__title {
     ${styles.fonts.bold}
-    font-size: ${styles.baseScale(4)};
+    font-size: ${styles.scl(4)};
   }
   &__sub-title {
-    font-size: ${styles.baseScale(2)};
+    font-size: ${styles.scl(2)};
   }
   &__title, &__sub-title {
-    margin-bottom: ${styles.baseScale(4)};
+    margin-bottom: ${styles.scl(4)};
     color: ${C.COLORS.WHITE};
   }
   &__button {
-    height: ${styles.baseScale(5)};
-    padding: 0 ${styles.baseScale(4)};
-    font-size: ${styles.baseScale(2)};
-    border-radius: ${styles.baseScale(2.5)};
+    height: ${styles.scl(5)};
+    padding: 0 ${styles.scl(4)};
+    font-size: ${styles.scl(2)};
+    border-radius: ${styles.scl(2.5)};
   }
 
   ${styles.mq.tabletAndAbove} {
     &__title {
-      font-size: ${styles.baseScale(5.5)};
+      font-size: ${styles.scl(5.5)};
     }
     &__sub-title {
-      font-size: ${styles.baseScale(2.25)};
+      font-size: ${styles.scl(2.25)};
     }
   }
 
   ${styles.mq.pcAndAbove} {
     &__title {
-      font-size: ${styles.baseScale(7.5)};
+      font-size: ${styles.scl(7.5)};
     }
     &__sub-title {
-      font-size: ${styles.baseScale(3.25)};
+      font-size: ${styles.scl(3.25)};
     }
     &__title, &__sub-title {
-      margin-bottom: ${styles.baseScale(5)};
+      margin-bottom: ${styles.scl(5)};
     }
     &__button {
-      height: ${styles.baseScale(9)};
-      padding: 0 ${styles.baseScale(5)};
-      font-size: ${styles.baseScale(2.75)};
-      border-radius: ${styles.baseScale(4.5)};
+      height: ${styles.scl(9)};
+      padding: 0 ${styles.scl(5)};
+      font-size: ${styles.scl(2.75)};
+      border-radius: ${styles.scl(4.5)};
     }
   }
 `;
@@ -458,7 +455,7 @@ Section.Title = ({
 
 const sStyles = {};
 sStyles.main = css`
-  padding: ${styles.baseScale(5)} 0;
+  padding: ${styles.scl(5)} 0;
 
   &__title-logo {
     display: none;
@@ -466,9 +463,9 @@ sStyles.main = css`
 
   &__title {
     ${styles.fonts.bold}
-    margin: 0 auto ${styles.baseScale(2)};
-    font-size: ${styles.baseScale(2.5)};
-    line-height: ${styles.baseScale(4.75)};
+    margin: 0 auto ${styles.scl(2)};
+    font-size: ${styles.scl(2.5)};
+    line-height: ${styles.scl(4.75)};
     color: ${C.COLORS.TAUPE};
     text-align: center;
   }
@@ -484,27 +481,27 @@ sStyles.main = css`
 
 
   ${styles.mq.tabletAndAbove} {
-    padding: ${styles.baseScale(8)} 0;
+    padding: ${styles.scl(8)} 0;
     &__title {
-      margin: 0 auto ${styles.baseScale(5)};
-      font-size: ${styles.baseScale(3.5)};
+      margin: 0 auto ${styles.scl(5)};
+      font-size: ${styles.scl(3.5)};
     }
   }
 
   ${styles.mq.pcAndAbove} {
-    padding: ${styles.baseScale(9)} 0;
+    padding: ${styles.scl(9)} 0;
     &__title-logo {
       display: flex;
       justify-content: center;
-      margin: 0 auto ${styles.baseScale(5)};
+      margin: 0 auto ${styles.scl(5)};
       img {
-        width: ${styles.baseScale(8.5)};
-        height: ${styles.baseScale(8.75)};
+        width: ${styles.scl(8.5)};
+        height: ${styles.scl(8.75)};
       }
     }
     &__title {
-      margin: 0 auto ${styles.baseScale(5)};
-      font-size: ${styles.baseScale(4)};
+      margin: 0 auto ${styles.scl(5)};
+      font-size: ${styles.scl(4)};
     }
   }
 `;
@@ -521,8 +518,8 @@ const IntroductionCard = ({
   points,
   buttonLabel,
   to,
-  isMobile
 }) => {
+  const mediaQuery = useMedia();
   return (
     <article className={icStyles.main}>
       <TitleComponent
@@ -547,7 +544,7 @@ const IntroductionCard = ({
         </dl>
       </div>
       <Button
-        type={isMobile
+        type={mediaQuery.mobile
           ? 'secondary'
           : 'secondary-outline'}
         label={buttonLabel}
@@ -569,11 +566,11 @@ icStyles.main = css`
     align-items: center;
     position: relative;
     width: 100%;
-    height: ${styles.baseScale(8.5)};
-    margin-bottom: ${styles.baseScale(5)};
+    height: ${styles.scl(8.5)};
+    margin-bottom: ${styles.scl(5)};
     border: 3px solid ${C.COLORS.LAVENDER_INDIGO};
     color: ${C.COLORS.LAVENDER_INDIGO};
-    font-size: ${styles.baseScale(2)};
+    font-size: ${styles.scl(2)};
     text-align: center;
     white-space: pre;
     &:before {
@@ -581,16 +578,16 @@ icStyles.main = css`
       position: absolute;
       top: 100%;
       left: 50%;
-      border-top: ${styles.baseScale(1.5)} solid ${C.COLORS.LAVENDER_INDIGO};
-      border-left: ${styles.baseScale(1.5)} solid transparent;
-      border-right: ${styles.baseScale(1.5)} solid transparent;
+      border-top: ${styles.scl(1.5)} solid ${C.COLORS.LAVENDER_INDIGO};
+      border-left: ${styles.scl(1.5)} solid transparent;
+      border-right: ${styles.scl(1.5)} solid transparent;
       transform: translateX(-50%);
     }
   }
   &__img {
     display: flex;
-    padding: 0 ${styles.baseScale(3.5)};
-    margin-bottom: ${styles.baseScale(2.25)};
+    padding: 0 ${styles.scl(3.5)};
+    margin-bottom: ${styles.scl(2.25)};
     img {
       width: 100%;
       height: auto;
@@ -600,27 +597,27 @@ icStyles.main = css`
     ${styles.fonts.bold}
     display: flex;
     justify-content: center;
-    margin-bottom: ${styles.baseScale(1.25)};
-    font-size: ${styles.baseScale(2.75)};
-    line-height: ${styles.baseScale(4)};
+    margin-bottom: ${styles.scl(1.25)};
+    font-size: ${styles.scl(2.75)};
+    line-height: ${styles.scl(4)};
   }
   &__points-wrapper {
     display: flex;
     justify-content: center;
   }
   &__points {
-    margin-bottom: ${styles.baseScale(2.5)};
+    margin-bottom: ${styles.scl(2.5)};
     & > * {
       display: flex;
       align-items: center;
       span {
-        margin-left: ${styles.baseScale(1.5)};
-        font-size: ${styles.baseScale(2)};
-        line-height: ${styles.baseScale(3.75)};
+        margin-left: ${styles.scl(1.5)};
+        font-size: ${styles.scl(2)};
+        line-height: ${styles.scl(3.75)};
       }
       svg {
-        width: ${styles.baseScale(2)};
-        height: ${styles.baseScale(2)};
+        width: ${styles.scl(2)};
+        height: ${styles.scl(2)};
         path {
           fill: ${C.COLORS.LAVENDER_INDIGO};
         }
@@ -628,70 +625,70 @@ icStyles.main = css`
     }
   }
   &__button {
-    font-size: ${styles.baseScale(1.75)};
+    font-size: ${styles.scl(1.75)};
   }
 
 
   ${styles.mq.tabletAndAbove} {
     width: 210px;
     &__catchphrase {
-      height: ${styles.baseScale(9.5)};
-      font-size: ${styles.baseScale(1.75)};
-      line-height: ${styles.baseScale(3)};
-      margin-bottom: ${styles.baseScale(1.75)};
+      height: ${styles.scl(9.5)};
+      font-size: ${styles.scl(1.75)};
+      line-height: ${styles.scl(3)};
+      margin-bottom: ${styles.scl(1.75)};
     }
     &__img {
       height: 146px;
       padding: 0;
     }
     &__title {
-      margin-bottom: ${styles.baseScale(1)};
-      font-size: ${styles.baseScale(2.25)};
-      line-height: ${styles.baseScale(4)};
+      margin-bottom: ${styles.scl(1)};
+      font-size: ${styles.scl(2.25)};
+      line-height: ${styles.scl(4)};
     }
     &__points {
-      margin-bottom: ${styles.baseScale(3)};
+      margin-bottom: ${styles.scl(3)};
       & > * {
         span {
-          font-size: ${styles.baseScale(1.5)};
-          line-height: ${styles.baseScale(2.75)};
+          font-size: ${styles.scl(1.5)};
+          line-height: ${styles.scl(2.75)};
         }
       }
     }
     &__button {
-      height: ${styles.baseScale(3)};
-      font-size: ${styles.baseScale(1.75)};
+      height: ${styles.scl(3)};
+      font-size: ${styles.scl(1.75)};
     }
   }
 
   ${styles.mq.pcAndAbove} {
     width: 314px;
     &__catchphrase {
-      height: ${styles.baseScale(14)};
-      font-size: ${styles.baseScale(2.75)};
-      line-height: ${styles.baseScale(3.5)};
-      margin-bottom: ${styles.baseScale(4)};
+      height: ${styles.scl(14)};
+      font-size: ${styles.scl(2.75)};
+      line-height: ${styles.scl(3.5)};
+      margin-bottom: ${styles.scl(4)};
     }
     &__img {
       height: 230px;
       padding: 0;
     }
     &__title {
-      margin-bottom: ${styles.baseScale(1.5)};
-      font-size: ${styles.baseScale(3.25)};
+      margin-bottom: ${styles.scl(1.5)};
+      font-size: ${styles.scl(3.25)};
     }
     &__points {
-      margin-bottom: ${styles.baseScale(5)};
+      margin-bottom: ${styles.scl(5)};
       & > * {
         span {
-          font-size: ${styles.baseScale(2.25)};
-          line-height: ${styles.baseScale(3.75)};
+          font-size: ${styles.scl(2.25)};
+          line-height: ${styles.scl(3.75)};
         }
       }
     }
     &__button {
-      height: ${styles.baseScale(5)};
-      font-size: ${styles.baseScale(2.25)};
+      height: ${styles.scl(5)};
+      font-size: ${styles.scl(2.25)};
     }
   }
 `;
@@ -818,6 +815,7 @@ const PromptContactSection = ({
   ...rest
 }) => {
   const mediaQuery = useMedia();
+  const { t } = useTranslation('common');
   const mainClassName = styles.cn([
     className,
     pcsStyles.main
@@ -829,11 +827,11 @@ const PromptContactSection = ({
           className={pcsStyles.sentence}
           children={
             <>
-              あなたのサービスに合わせた
+              {t('common:prompt-contact-section.title-1')}
               <br className={styles.show.mobileOnly} />
-              適切な
+              {t('common:prompt-contact-section.title-2')}
               <br className={styles.show.tabletOnly} />
-              プランをご提案します
+              {t('common:prompt-contact-section.title-3')}
             </>
           }
         />
@@ -842,7 +840,7 @@ const PromptContactSection = ({
           size={mediaQuery.mobile
             ? 'default'
             : 'medium'}
-          label='CONTACT US'
+          label={t('common:prompt-contact-section.contact-us')}
         />
       </Container>
     </Section>

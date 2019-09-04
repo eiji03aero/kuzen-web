@@ -100,7 +100,7 @@ Styles.main = css`
   &__caret {
     position: absolute;
     top: 50%;
-    left: calc(100% + ${styles.baseScale(2)});
+    left: calc(100% + ${styles.scl(2)});
     transform: translateY(-50%);
   }
 
@@ -112,13 +112,13 @@ Styles.main = css`
       display: flex;
       justify-content: center;
       width: 100%;
-      padding-bottom: ${styles.baseScale(3)};
+      padding-bottom: ${styles.scl(3)};
     }
   }
 
   &--is-active { }
   &--is-active &__anchor {
-    padding-bottom: ${styles.baseScale(1)};
+    padding-bottom: ${styles.scl(1)};
   }
 `;
 Styles.top = Styles.main + '__top';

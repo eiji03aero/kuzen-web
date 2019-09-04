@@ -85,11 +85,11 @@ Styles.main = css`
 
   &__close-button {
     position: absolute;
-    top: ${styles.baseScale(4)};
-    right: ${styles.baseScale(4)};
+    top: ${styles.scl(4)};
+    right: ${styles.scl(4)};
     svg {
-      width: ${styles.baseScale(4)};
-      height: ${styles.baseScale(4)};
+      width: ${styles.scl(4)};
+      height: ${styles.scl(4)};
       path {
         fill: ${C.COLORS.WHITE};
       }

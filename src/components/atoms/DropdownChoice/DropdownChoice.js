@@ -37,11 +37,11 @@ Styles.main = css`
   display: flex;
   align-items: center;
   width: 100%;
-  height: ${styles.baseScale(5)};
-  padding: 0 ${styles.baseScale(0.5)};
+  height: ${styles.scl(5)};
+  padding: 0 ${styles.scl(0.5)};
   background-color: transparent;
-  border-radius: ${styles.baseScale(.5)};
-  font-size: ${styles.baseScale(2)};
+  border-radius: ${styles.scl(.5)};
+  font-size: ${styles.scl(2)};
   color: ${C.COLORS.TAUPE};
   cursor: pointer;
   white-space: pre;
@@ -64,7 +64,7 @@ Styles.main = css`
   &__label { }
 
   &__leading + &__label {
-    margin-left: ${styles.baseScale(2)};
+    margin-left: ${styles.scl(2)};
   }
 
   &:hover {
@@ -79,7 +79,7 @@ Styles.main = css`
 
   &--size-default { }
   &--size-wide {
-    padding: 0 ${styles.baseScale(2)};
+    padding: 0 ${styles.scl(2)};
   }
 `;
 Styles.leading = Styles.main + '__leading';

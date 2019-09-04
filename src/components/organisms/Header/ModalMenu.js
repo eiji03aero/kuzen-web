@@ -180,15 +180,15 @@ Styles.main = css`
     align-items: center;
     width: 275px;
     margin: 0 auto;
-    padding: ${styles.baseScale(8)} 0;
+    padding: ${styles.scl(8)} 0;
   }
 
   &__anchor {
-    font-size: ${styles.baseScale(3)};
+    font-size: ${styles.scl(3)};
   }
 
   &__sub-anchor {
-    font-size: ${styles.baseScale(2)};
+    font-size: ${styles.scl(2)};
   }
 
   &__button {
@@ -197,7 +197,7 @@ Styles.main = css`
 
   &__item {
     &:not(:last-child) {
-      margin-bottom: ${styles.baseScale(4)};
+      margin-bottom: ${styles.scl(4)};
     }
   }
 
@@ -206,9 +206,9 @@ Styles.main = css`
     flex-direction: column;
     flex-wrap: wrap;
     max-height: 380px;
-    padding: ${styles.baseScale(1.5)} 0;
+    padding: ${styles.scl(1.5)} 0;
     & > * {
-      padding: ${styles.baseScale(1.5)} 0;
+      padding: ${styles.scl(1.5)} 0;
     }
   }
 

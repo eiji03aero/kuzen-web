@@ -78,7 +78,7 @@ Styles.main = css`
 
   &--type-default { }
   &--type-down {
-    transform: translateY(${styles.baseScale(-2)});
+    transform: translateY(${styles.scl(-2)});
   }
   &--type-down&--is-shown {
     transform: translateY(0);

@@ -31,5 +31,11 @@
   "news": "ニュース",
   "download-documents": "資料ダウンロード",
   "about-company": "会社概要",
-  "recruit-reseller": "代理店募集"
+  "recruit-reseller": "代理店募集",
+  "prompt-contact-section": {
+    "title-1": "あなたのサービスに合わせた",
+    "title-2": "適切な",
+    "title-3": "プランをご提案します",
+    "contact-us": "CONTACT US"
+  }
 }

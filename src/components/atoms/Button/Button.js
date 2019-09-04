@@ -106,21 +106,21 @@ Styles.main = css`
 
 
   &--size-default {
-    height: ${styles.baseScale(4.5)};
-    padding: 0 ${styles.baseScale(3.5)};
-    border-radius: ${styles.baseScale(2.25)};
-    font-size: ${styles.baseScale(2.25)};
+    height: ${styles.scl(4.5)};
+    padding: 0 ${styles.scl(3.5)};
+    border-radius: ${styles.scl(2.25)};
+    font-size: ${styles.scl(2.25)};
   }
   &--size-small {
-    height: ${styles.baseScale(3.75)};
-    padding: 0 ${styles.baseScale(2.25)};
-    font-size: ${styles.baseScale(1.75)};
+    height: ${styles.scl(3.75)};
+    padding: 0 ${styles.scl(2.25)};
+    font-size: ${styles.scl(1.75)};
   }
   &--size-medium {
-    height: ${styles.baseScale(6.25)};
-    padding: 0 ${styles.baseScale(4)};
-    border-radius: ${styles.baseScale(3)};
-    font-size: ${styles.baseScale(3)};
+    height: ${styles.scl(6.25)};
+    padding: 0 ${styles.scl(4)};
+    border-radius: ${styles.scl(3)};
+    font-size: ${styles.scl(3)};
   }
   &--size-fit {
     height: auto;

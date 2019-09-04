@@ -34,6 +34,6 @@ export const I18nButton = ({
 
 const Styles = {};
 Styles.main = css`
-  width: ${styles.baseScale(4)};
-  height: ${styles.baseScale(4)};
+  width: ${styles.scl(4)};
+  height: ${styles.scl(4)};
 `;
