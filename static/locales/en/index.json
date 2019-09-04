@@ -1,6 +1,10 @@
 {
   "top": {
-    "title": "マーケティング",
+    "phrases": [
+      "Marketing",
+      "Customer support",
+      "Work style"
+    ],
     "sub-title": "KUZEN AIチャットボットで新しい形に"
   },
   "usecases": {

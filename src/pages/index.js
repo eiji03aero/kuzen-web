@@ -10,6 +10,7 @@ import {
   Button,
   Container,
   TopBanner,
+  TypeEffect
 } from '../components';
 import Layout from "../components/layout";
 
@@ -45,7 +46,9 @@ export default ({data}) => {
         fluid={sources}
         children={
           <Top
-            title={t('index:top.title')}
+            title={
+              <TypeEffect texts={t('index:top.phrases', {returnObjects: true})} />
+            }
             subTitle={t('index:top.sub-title')}
             buttonLabel={t('common:download-documents')}
             onClick={() => navigate(paths.contact)}
