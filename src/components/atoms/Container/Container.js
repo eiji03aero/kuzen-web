@@ -13,8 +13,8 @@ export const Container = ({
   ...rest
 }) => {
   const mainClassName = styles.cn([
+    className,
     Styles.main,
-    className
   ]);
 
   return (

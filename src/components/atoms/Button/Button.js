@@ -62,13 +62,13 @@ Styles.main = css`
     color: ${C.COLORS.WHITE};
     &:hover {
       background-color: ${C.COLORS.WHITE};
-      border: 1px solid ${C.COLORS.LAVENDER_INDIGO};
+      border: 2px solid ${C.COLORS.LAVENDER_INDIGO};
       color: ${C.COLORS.LAVENDER_INDIGO};
     }
   }
   &--type-secondary-outline {
     background-color: transparent;
-    border: 1px solid ${C.COLORS.LAVENDER_INDIGO};
+    border: 2px solid ${C.COLORS.LAVENDER_INDIGO};
     color: ${C.COLORS.LAVENDER_INDIGO};
     &:hover {
       background-color: ${C.COLORS.LAVENDER_INDIGO};
@@ -87,7 +87,7 @@ Styles.main = css`
   }
   &--type-black-outline {
     background-color: transparent;
-    border: 1px solid ${C.COLORS.TAUPE};
+    border: 2px solid ${C.COLORS.TAUPE};
     color: ${C.COLORS.TAUPE};
     &:hover {
       background-color: ${C.COLORS.WHITE};
@@ -96,7 +96,7 @@ Styles.main = css`
   }
   &--type-white-outline {
     background-color: transparent;
-    border: 1px solid ${C.COLORS.WHITE};
+    border: 2px solid ${C.COLORS.WHITE};
     color: ${C.COLORS.WHITE};
     &:hover {
       background-color: ${C.COLORS.WHITE};

@@ -63,6 +63,14 @@ show.mobileOnly = css`
     display: none !important;
   }
 `;
+show.tabletOnly = css`
+  ${mq.mobileOnly} {
+    display: none !important;
+  }
+  ${mq.pcOnly} {
+    display: none !important;
+  }
+`;
 show.tabletAndAbove = css`
   ${mq.mobileOnly} {
     display: none !important;

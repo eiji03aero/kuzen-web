@@ -110,6 +110,8 @@ export default ({data}) => {
         </Container>
       </Section>
 
+      <PromptContactSection className={styles.show.mobileOnly} level='h2' />
+
       <Section>
         <Container>
           <Section.TitleLogo />
@@ -457,9 +459,11 @@ Section.Title = ({
 const sStyles = {};
 sStyles.main = css`
   padding: ${styles.baseScale(5)} 0;
+
   &__title-logo {
     display: none;
   }
+
   &__title {
     ${styles.fonts.bold}
     margin: 0 auto ${styles.baseScale(2)};
@@ -468,9 +472,14 @@ sStyles.main = css`
     color: ${C.COLORS.TAUPE};
     text-align: center;
   }
+
   &--type-default { }
   &--type-white {
-    background-color: ${C.COLORS.GHOST_WHITE}
+    background-color: ${C.COLORS.GHOST_WHITE};
+  }
+  &--type-primary {
+    background-color: ${C.COLORS.VERDIGRIS};
+    color: ${C.COLORS.WHITE};
   }
 
 
@@ -483,7 +492,7 @@ sStyles.main = css`
   }
 
   ${styles.mq.pcAndAbove} {
-    padding: ${styles.baseScale(10)} 0;
+    padding: ${styles.baseScale(9)} 0;
     &__title-logo {
       display: flex;
       justify-content: center;
@@ -802,8 +811,82 @@ ecGridStyles.main = css`
   }
 `;
 
+/* -------------------- PromptContactSection -------------------- */
+const PromptContactSection = ({
+  className,
+  level: TitleComponent = 'h1',
+  ...rest
+}) => {
+  const mediaQuery = useMedia();
+  const mainClassName = styles.cn([
+    className,
+    pcsStyles.main
+  ]);
+  return (
+    <Section className={mainClassName} type='primary'>
+      <Container className={pcsStyles.content}>
+        <TitleComponent
+          className={pcsStyles.sentence}
+          children={
+            <>
+              あなたのサービスに合わせた
+              <br className={styles.show.mobileOnly} />
+              適切な
+              <br className={styles.show.tabletOnly} />
+              プランをご提案します
+            </>
+          }
+        />
+        <Button
+          type='white-outline'
+          size={mediaQuery.mobile
+            ? 'default'
+            : 'medium'}
+          label='CONTACT US'
+        />
+      </Container>
+    </Section>
+  );
+};
+
+const pcsStyles = {};
+pcsStyles.main = css`
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__sentence {
+    ${styles.fonts.bold}
+    font-size: ${styles.scl(2.25)};
+    line-height: ${styles.scl(4)};
+    margin-bottom: ${styles.scl(2.5)};
+    text-align: center;
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    &__content {
+      flex-direction: row;
+      flex-flow: row-reverse;
+      justify-content: center;
+    }
+
+    &__sentence {
+      font-size: ${styles.scl(2.75)};
+      line-height: ${styles.scl(4)};
+      margin-bottom: 0;
+      margin-left: ${styles.scl(5)};
+      text-align: left;
+    }
+  }
+`;
+pcsStyles.content = pcsStyles.main + '__content';
+pcsStyles.sentence = pcsStyles.main + '__sentence';
+pcsStyles.span = pcsStyles.main + '__span';
 
 
+/* -------------------- Components -------------------- */
 const Html = ({
   component: Component = 'div',
   children,
