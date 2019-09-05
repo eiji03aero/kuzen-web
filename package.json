@@ -41,7 +41,7 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
     "cp:locales": "node ./scripts/watchLocales.js",
-    "generate:svg-icon-name-map": "node ./scripts/generateSvgIconNameMap.js"
+    "prepare:svg-icons": "node ./scripts/prepareSvgIcons.js"
   },
   "repository": {
     "type": "git",
