@@ -20,7 +20,7 @@ import { useMedia } from '../hooks';
 import { paths } from '../paths.js';
 
 export default ({data}) => {
-  const { t } = useTranslation(['common', 'index']);
+  const { t, i18n } = useTranslation(['common', 'index']);
   const mediaQuery = useMedia();
 
   const sources = [
@@ -31,14 +31,18 @@ export default ({data}) => {
     }
   ];
 
-  const clientLogosMobileFluid = _.assign({}, data.clientLogosMobile.childImageSharp.fluid, {
-    presentationWidth: '100%',
-    presentationHeight: 'auto'
-  });
-  const clientLogosWebFluid = _.assign({}, data.clientLogosWeb.childImageSharp.fluid, {
-    presentationWidth: '100%',
-    presentationHeight: 'auto'
-  });
+  const clientLogosMobileFluid = data.clientLogosMobile.childImageSharp.fluid;
+  const clientLogosWebFluid = data.clientLogosWeb.childImageSharp.fluid;
+
+  const implementationProcess_Mobile = i18n.language === 'ja'
+    ?  data.implementationProcessMobile_ja.childImageSharp.fluid
+    :  data.implementationProcessMobile_en.childImageSharp.fluid;
+
+  const implementationProcess_Web = i18n.language === 'ja'
+    ?  data.implementationProcessWeb_ja.childImageSharp.fluid
+    :  data.implementationProcessWeb_en.childImageSharp.fluid;
+
+  console.log(data);
 
   return (
     <Layout>
@@ -168,6 +172,21 @@ export default ({data}) => {
           </div>
         </Container>
       </Section>
+
+      <Section>
+        <Container>
+          <Section.TitleLogo />
+          <Section.Title component='h2'>
+            {t('index:implementation-process.title')}
+          </Section.Title>
+          <div className={ipStyles.main}>
+            <Img className={styles.show.mobileOnly} fluid={implementationProcess_Mobile} />
+            <Img className={styles.show.tabletAndAbove} fluid={implementationProcess_Web} />
+          </div>
+        </Container>
+      </Section>
+
+      <PromptContactSection level='h2' />
     </Layout>
   );
 };
@@ -202,7 +221,6 @@ export const query = graphql`
       publicURL
     }
 
-
     clientLogosMobile: file(
       relativePath: { eq: "Client Logos/Client-Logos-All-in-One/ClientLogos_Phone.png" }
     ) {
@@ -216,7 +234,7 @@ export const query = graphql`
       relativePath: { eq: "Client Logos/Client-Logos-All-in-One/ClientLogos_Web.png" }
     ) {
       childImageSharp {
-        fluid(maxWidth: 2000, quality: 100) {
+        fluid(maxWidth: 1024, quality: 100) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -242,6 +260,43 @@ export const query = graphql`
     ) {
       publicURL
     }
+
+    implementationProcessMobile_ja: file(
+      relativePath: { regex: "/Kuzen_Implementation-Process2_Phone.png/" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 320, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    implementationProcessMobile_en: file(
+      relativePath: { regex: "/Kuzen_Implementation-Process2_Phone_EN.png/" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 320, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    implementationProcessWeb_ja: file(
+      relativePath: { regex: "/Kuzen_Implementation-Process2.png/" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 1024, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    implementationProcessWeb_en: file(
+      relativePath: { regex: "/Kuzen_Implementation-Process2_EN.png/" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 1024, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
   }
 `;
 
@@ -255,10 +310,6 @@ Styles.main = css`
       margin: 0 0 ${styles.scl(5.5)};
     }
   }
-
-  &__client-logos {
-  }
-
 
   ${styles.mq.tabletAndAbove} {
     &__ic-grid {
@@ -317,6 +368,16 @@ atStyles.main = css`
 `;
 atStyles.breakable = atStyles.main + '__breakable';
 atStyles.accent = atStyles.main + '__accent';
+
+const ipStyles = {};
+ipStyles.main = css`
+  max-width: 320px;
+  margin: 0 auto;
+
+  ${styles.mq.tabletAndAbove} {
+    max-width: 100%;
+  }
+`;
 
 /* -------------------- Top -------------------- */
 const Top = ({
@@ -879,6 +940,12 @@ pcsStyles.main = css`
       margin-bottom: 0;
       margin-left: ${styles.scl(5)};
       text-align: left;
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    &__sentence {
+      font-size: ${styles.scl(3.5)};
     }
   }
 `;
