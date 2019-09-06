@@ -17,8 +17,8 @@ export const Anchor = React.forwardRef(({
     ? Link
     : 'a'
   const anchorClassName = styles.cn([
-    Styles.main,
     className,
+    Styles.main,
     invert && `${Styles.main}--is-invert`,
     active && `${Styles.main}--is-active`
   ]);

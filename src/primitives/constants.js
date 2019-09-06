@@ -18,6 +18,7 @@ export const COLORS = {
   DIM_GREY: 'rgba(0, 0, 0, 0.16)',
   TAUPE: 'rgba(58, 55, 56, 1)',
   MANATEE: 'rgba(155, 154, 150, 1)',
+  GAINSBORO: 'rgba(220, 219, 216, 1)',
   LAVENDER_INDIGO: 'rgba(146, 93, 226, 1)',
   VERDIGRIS: 'rgba(71, 192, 176, 1)',
 };

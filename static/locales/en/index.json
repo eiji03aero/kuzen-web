@@ -61,5 +61,24 @@
   },
   "implementation-process": {
     "title": "導入の流れ"
+  },
+  "best-feature": {
+    "title": "KUZENの機能紹介",
+    "intuitive-ui": {
+      "title": "直感的なUI",
+      "description": "専門知識のいらない直感的な操作で簡単にチャットボットを作ったり管理したりすることができます"
+    },
+    "nlp": {
+      "title": "自然言語処理",
+      "description": "自社開発の自然言語処理エンジンを搭載し、ユーザーからの様々な言い回しに対応できます"
+    },
+    "machine-learning": {
+      "title": "学習機能",
+      "description": "想定外の発言データを蓄積し、学習することで回答の制度を向上させることができます"
+    },
+    "external-api": {
+      "title": "外部API連携",
+      "description": "リアルタイムにシステム間連携を行い、ダイナミックな活用を開発不要で行うことができます"
+    }
   }
 }

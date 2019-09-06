@@ -10,7 +10,8 @@ import {
   Button,
   Container,
   TopBanner,
-  TypeEffect
+  TypeEffect,
+  Anchor
 } from '../components';
 import Layout from "../components/layout";
 
@@ -187,6 +188,54 @@ export default ({data}) => {
       </Section>
 
       <PromptContactSection level='h2' />
+
+      <Section>
+        <Container>
+          <Section.TitleLogo />
+          <Section.Title component='h2'>
+            {t('index:best-feature.title')}
+          </Section.Title>
+          <div className={fcStyles.container}>
+            <div className={fcStyles.containerGrid}>
+              <FeatureCard
+                level='h3'
+                iconName='Mini_Best_Feature_1_Intuitive_UI'
+                title={t('index:best-feature.intuitive-ui.title')}
+                description={t('index:best-feature.intuitive-ui.description')}
+                to={paths.root}
+              />
+              <FeatureCard
+                level='h3'
+                iconName='Mini_Best_Feature_2_NLP'
+                title={t('index:best-feature.nlp.title')}
+                description={t('index:best-feature.nlp.description')}
+                to={paths.root}
+              />
+              <FeatureCard
+                level='h3'
+                iconName='Mini_Best_Feature_3_Machine_Learning'
+                title={t('index:best-feature.machine-learning.title')}
+                description={t('index:best-feature.machine-learning.description')}
+                to={paths.root}
+              />
+              <FeatureCard
+                level='h3'
+                iconName='Mini_Best_Feature_4_External_API'
+                title={t('index:best-feature.external-api.title')}
+                description={t('index:best-feature.external-api.description')}
+                to={paths.root}
+              />
+            </div>
+            <div className={fcStyles.containerFooter}>
+              <Button
+                className={fcStyles.containerFooterButton}
+                type='secondary-outline'
+                label={'機能一覧へ'}
+              />
+            </div>
+          </div>
+        </Container>
+      </Section>
     </Layout>
   );
 };
@@ -952,6 +1001,263 @@ pcsStyles.main = css`
 pcsStyles.content = pcsStyles.main + '__content';
 pcsStyles.sentence = pcsStyles.main + '__sentence';
 pcsStyles.span = pcsStyles.main + '__span';
+
+
+/* -------------------- FeatureCard -------------------- */
+const FeatureCard = ({
+  level: TitleComponent = 'h1',
+  iconName,
+  title,
+  description,
+  to
+}) => {
+  return (
+    <div className={fcStyles.main}>
+      <div className={fcStyles.catch}>
+        <SvgIcon className={fcStyles.catchIcon} name={iconName} />
+        <p className={fcStyles.catchTitle} children={title} />
+
+      </div>
+      <article className={fcStyles.content}>
+        <header className={fcStyles.top}>
+          <SvgIcon className={fcStyles.topIcon} name={iconName} />
+          <TitleComponent className={fcStyles.topTitle} children={title} />
+        </header>
+        <p className={fcStyles.description}>
+          {description}
+        </p>
+        <footer className={fcStyles.footer}>
+          <Anchor className={fcStyles.footerAnchor}
+            to={to}
+            active
+            children={'Learn more' + ' >'}
+          />
+        </footer>
+      </article>
+    </div>
+  );
+};
+
+const fcStyles = {};
+fcStyles.main = css`
+  max-width: 350px;
+  position: relative;
+
+  &__content {
+    position: relative;
+    margin: 0 ${styles.scl(3.75)};
+    padding: ${styles.scl(2.5)};
+    border: 2px solid ${C.COLORS.GAINSBORO};
+    border-radius: ${styles.scl(2.5)};
+  }
+  &__top {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: ${styles.scl(1.25)};
+    &__icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: ${styles.scl(3)};
+      height: ${styles.scl(3)};
+      path {
+        fill: ${C.COLORS.VERDIGRIS};
+      }
+    }
+    &__title {
+      ${styles.fonts.bold}
+      font-size: ${styles.scl(2.25)};
+      line-height: ${styles.scl(3.75)};
+    }
+  }
+  &__description {
+    font-size: ${styles.scl(1.75)};
+    line-height: ${styles.scl(3.5)};
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    &__anchor {
+      font-size: ${styles.scl(1.5)};
+      line-height: ${styles.scl(1.25)};
+    }
+  }
+  &__catch {
+    display: none;
+    position: relative;
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    max-width: 280px;
+    &__content {
+      margin: 0;
+      padding: ${styles.scl(3.75)};
+    }
+    &__top {
+      margin-bottom: ${styles.scl(2)};
+      &__title {
+      }
+      &__icon {
+        width: ${styles.scl(4.25)};
+        height: ${styles.scl(4.25)};
+      }
+    }
+    &__description {
+      margin-bottom: ${styles.scl(1)};
+    }
+    &__footer {
+      &__anchor{ }
+    }
+    &__catch { }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    max-width: 240px;
+    & > * {
+      transition: opacity 250ms;
+    }
+
+    &__content {
+      opacity: 0;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.16);
+    }
+    &__top {
+      margin-bottom: ${styles.scl(1.25)};
+      padding-top: ${styles.scl(2.5)};
+      &__title { }
+      &__icon {
+        width: ${styles.scl(3)};
+        height: ${styles.scl(3)};
+      }
+    }
+    &__description {
+      margin-bottom: ${styles.scl(3)};
+    }
+    &__footer {
+      &__anchor{ }
+    }
+    &__catch {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      opacity: 1;
+      &__icon {
+        width: ${styles.scl(10)};
+        height: ${styles.scl(10)};
+        margin-bottom: ${styles.scl(3)};
+        path {
+          fill: ${C.COLORS.LAVENDER_INDIGO};
+        }
+      }
+      &__title {
+        ${styles.fonts.bold}
+        font-size: ${styles.scl(3)};
+        line-height: ${styles.scl(4)};
+      }
+    }
+
+    &:hover { }
+    &:hover &__content {
+      opacity: 1;
+    }
+    &:hover &__catch {
+      opacity: 0;
+    }
+  }
+`;
+fcStyles.content = fcStyles.main + '__content';
+fcStyles.top = fcStyles.main + '__top';
+fcStyles.topIcon = fcStyles.main + '__top__icon';
+fcStyles.topTitle = fcStyles.main + '__top__title';
+fcStyles.description = fcStyles.main + '__description';
+fcStyles.footer = fcStyles.main + '__footer';
+fcStyles.footerAnchor = fcStyles.main + '__footer__anchor';
+fcStyles.catch = fcStyles.main + '__catch';
+fcStyles.catchIcon = fcStyles.main + '__catch__icon';
+fcStyles.catchTitle = fcStyles.main + '__catch__title';
+
+fcStyles.container = css`
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: ${styles.scl(5)};
+    & > * {
+      margin-bottom: ${styles.scl(2.5)};
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: center;
+    &__button {
+      height: ${styles.scl(5)};
+      font-size: ${styles.scl(1.75)};
+      padding: 0 ${styles.scl(4)};
+      border-radius: ${styles.scl(2.5)};
+    }
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    &__grid {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: ${styles.scl(7)};
+    }
+    &__footer {
+      &__button {
+        padding: 0 ${styles.scl(5.5)};
+      }
+    }
+  }
+  ${styles.mq.tabletOnly} {
+    &__grid {
+      & > * {
+        margin: 0;
+        margin-bottom: ${styles.scl(3.75)};
+        margin-right: ${styles.scl(3.75)};
+        &:nth-of-type(2n) {
+          margin-right: 0;
+        }
+        &:not(:nth-of-type(-n+2)) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    &__grid {
+      margin-bottom: ${styles.scl(7)};
+      justify-content: space-between;
+      & > * {
+        margin: 0;
+      }
+    }
+    &__footer {
+      &__button {
+        height: ${styles.scl(7.5)};
+        padding: 0 ${styles.scl(6.5)};
+        font-size: ${styles.scl(2.75)};
+        line-height: ${styles.scl(3.25)};
+        border-radius: ${styles.scl(3.75)};
+      }
+    }
+  }
+`;
+fcStyles.containerGrid = fcStyles.container + '__grid';
+fcStyles.containerFooter = fcStyles.container + '__footer';
+fcStyles.containerFooterButton = fcStyles.container + '__footer__button';
 
 
 /* -------------------- Components -------------------- */
