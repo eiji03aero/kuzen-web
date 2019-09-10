@@ -20,8 +20,8 @@
     "notifications": "セグメント配信",
     "custom-db": "カスタムDB",
     "integration-with-chat-platforms": "対話インターフェースとの連携",
-    "integration-with-external-systems": "外部API連携"
-
+    "integration-with-external-systems": "外部API連携",
+    "to-list": "機能一覧へ"
   },
   "functions--short": {
     "operator": "有人切替",

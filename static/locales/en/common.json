@@ -20,7 +20,8 @@
     "notifications": "Notifications",
     "custom-db": "Custom DB",
     "integration-with-chat-platforms": "Integration with chat platforms",
-    "integration-with-external-systems": "Integration with external systems"
+    "integration-with-external-systems": "Integration with external systems",
+    "to-list": "機能一覧へ"
   },
   "functions--short": {
     "operator": "operator",

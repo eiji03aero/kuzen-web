@@ -17,8 +17,12 @@ import Layout from "../components/layout";
 
 import * as C from '../primitives';
 import { styles } from '../utils';
-import { useMedia } from '../hooks';
+import { useMedia, useCompositeState } from '../hooks';
 import { paths } from '../paths.js';
+
+// Carousel
+import ChevronLeftIcon from 'mdi-react/ChevronLeftIcon';
+import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 
 export default ({data}) => {
   const { t, i18n } = useTranslation(['common', 'index']);
@@ -230,15 +234,244 @@ export default ({data}) => {
               <Button
                 className={fcStyles.containerFooterButton}
                 type='secondary-outline'
-                label={'機能一覧へ'}
+                label={t('common:functions.to-list')}
               />
             </div>
           </div>
         </Container>
       </Section>
+
+      <Section type='white'>
+        <Container>
+          <Section.TitleLogo />
+          <Section.Title component='h2'>
+            {t('common:case-studies')}
+          </Section.Title>
+          <Carousel>
+            <UsecaseCard
+              level='h3'
+              imageUrl={data.whyKuzen1.publicURL}
+              title={'FAQのフロントとして、社員の業務効率向上に貢献'}
+              clientName={'ベルデータ様'}
+              categories={['コンテンツ強化', '満足度向上']}
+            />
+            <UsecaseCard
+              level='h3'
+              imageUrl={data.whyKuzen1.publicURL}
+              title={'number two'}
+              clientName={'ベルデータ様'}
+              categories={['コンテンツ強化', '満足度向上']}
+            />
+            <UsecaseCard
+              level='h3'
+              imageUrl={data.whyKuzen1.publicURL}
+              title={'number three'}
+              clientName={'ベルデータ様'}
+              categories={['コンテンツ強化', '満足度向上']}
+            />
+            <UsecaseCard
+              level='h3'
+              imageUrl={data.whyKuzen1.publicURL}
+              title={'number four'}
+              clientName={'ベルデータ様'}
+              categories={['コンテンツ強化', '満足度向上']}
+            />
+          </Carousel>
+        </Container>
+      </Section>
+
+      <PromptContactSection level='h2' />
     </Layout>
   );
 };
+
+const Carousel = ({
+  children,
+  scrollDuration = 500,
+}) => {
+  const [state, setState] = useCompositeState({
+    currentIndex: 0,
+    cardWidth: 0,
+    cardHeight: 0,
+  });
+  const sliderRef = React.useRef(null);
+  const absoluteIndex = React.useRef(0);
+  const isScrolling = React.useRef(false);
+  const mediaQuery = useMedia();
+
+  const arrayChildren = React.Children.toArray(children);
+  const childrenCount = React.Children.count(children);
+  const lastIndex = childrenCount - 1;
+  const cardMargin = mediaQuery.mobile ? 20 :
+    mediaQuery.tablet ? 18 : 30;
+  const displayedSlides = mediaQuery.mobile ? 1 : 3;
+  const sliderWidth = mediaQuery.mobile
+    ? state.cardWidth
+    : state.cardWidth * 3 + cardMargin * 2;
+  const sliderHeight = state.cardHeight;
+
+  const getIndex = (currentIndex, idx) => {
+    const nextIdx = currentIndex + idx;
+    return (
+      nextIdx < 0 ? getIndex(lastIndex + 1, nextIdx) :
+      nextIdx > lastIndex ? getIndex(0, nextIdx - lastIndex - 1) :
+      nextIdx
+    );
+  };
+
+  const moveIndex = (value) => {
+    const nextIndex = getIndex(state.currentIndex, value);
+    absoluteIndex.current += value;
+    setState({ currentIndex: nextIndex });
+  };
+
+  const renderSlide = (idx) => {
+    const childIndex = getIndex(state.currentIndex, idx);
+    const child = arrayChildren[childIndex];
+    const key = `${childIndex}-${absoluteIndex.current + idx}`;
+    const style = {
+      left:
+        idx < 0 ? `${(state.cardWidth + cardMargin) * idx}px` :
+        idx > 0 ? `${(state.cardWidth + cardMargin) * idx}px` :
+        ''
+    };
+    return (
+      <div key={key} className={cStyles.sliderSlide} style={style} data-slide-idx={idx}>
+        {React.cloneElement(child, { key: key })}
+      </div>
+    );
+  };
+
+  const scrollSlides = (indexToMove) => {
+    if (isScrolling.current) return;
+    isScrolling.current = true;
+
+    // Need to reverse the value since to match direction
+    const distance = (state.cardWidth * indexToMove + cardMargin * indexToMove) * -1;
+    const slideDoms = [].slice.call(sliderRef.current.querySelectorAll('.' + cStyles.sliderSlide));
+    _.forEach(slideDoms, (dom) => {
+      dom.style.transition = `transform ${scrollDuration}ms`;
+      dom.style.transform = `translateX(${distance}px)`;
+    });
+    setTimeout(() => {
+      _.forEach(slideDoms, (dom) => {
+        dom.style.transition = '';
+        dom.style.transform = '';
+      });
+      moveIndex(indexToMove);
+      isScrolling.current = false;
+    }, scrollDuration);
+  };
+
+  const handleScrollNext = () => {
+    scrollSlides(displayedSlides);
+  };
+
+  const handleScrollPrevious = () => {
+    scrollSlides(displayedSlides * -1);
+  };
+
+  React.useEffect(() => {
+    const child = sliderRef.current.firstChild.firstChild;
+    setState({cardWidth: child.offsetWidth, cardHeight: child.offsetHeight});
+  }, [mediaQuery]);
+
+  return (
+    <div className={cStyles.main}>
+      <div className={cStyles.slider} ref={sliderRef} style={{width: sliderWidth, height: sliderHeight}}>
+        {[
+          ...(_.map(_.range(-6, 0), renderSlide)),
+          renderSlide(0),
+          ...(_.map(_.range(1, 7), renderSlide))
+        ]}
+      </div>
+      <div className={styles.cn([cStyles.side, cStyles.sideLeft])}>
+        <Button
+          icon={<ChevronLeftIcon />}
+          onClick={handleScrollPrevious}
+        />
+      </div>
+      <div className={styles.cn([cStyles.side, cStyles.sideRight])}>
+        <Button
+          icon={<ChevronRightIcon />}
+          onClick={handleScrollNext}
+        />
+      </div>
+    </div>
+  );
+};
+
+const cStyles = {};
+cStyles.main = css`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+
+  &__slider {
+    position: relative;
+    &__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &__side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    &__left {
+      left: 0;
+      background: linear-gradient(90deg, rgba(248, 250, 255, 1), rgba(248, 250, 255, 0))
+    }
+    &__right {
+      right: 0;
+      background: linear-gradient(270deg, rgba(248, 250, 255, 1), rgba(248, 250, 255, 0))
+    }
+    svg {
+      width: ${styles.scl(6)};
+      height: ${styles.scl(6)};
+      path {
+        fill: ${C.COLORS.MANATEE};
+      }
+    }
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    overflow: hidden;
+    &__slider {
+      overflow: hidden;
+    }
+
+    &__side {
+      svg {
+        width: ${styles.scl(5)};
+        height: ${styles.scl(5)};
+      }
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    margin: 0 -72px;
+    &__side {
+      svg {
+        width: ${styles.scl(7)};
+        height: ${styles.scl(7)};
+      }
+    }
+  }
+`;
+cStyles.slider = cStyles.main + '__slider';
+cStyles.sliderSlide = cStyles.main + '__slider__slide';
+cStyles.side = cStyles.main + '__side';
+cStyles.sideLeft = cStyles.main + '__side__left';
+cStyles.sideRight = cStyles.main + '__side__right';
+
 
 export const query = graphql`
   query {
@@ -1258,6 +1491,146 @@ fcStyles.container = css`
 fcStyles.containerGrid = fcStyles.container + '__grid';
 fcStyles.containerFooter = fcStyles.container + '__footer';
 fcStyles.containerFooterButton = fcStyles.container + '__footer__button';
+
+
+/* -------------------- UsecaseCard -------------------- */
+const UsecaseCard = ({
+  level: TitleComponent = 'h1',
+  imageUrl,
+  title,
+  clientName,
+  categories
+}) => {
+  return (
+    <article className={ucStyles.main}>
+      <img className={ucStyles.img} src={imageUrl} />
+      <div className={ucStyles.content}>
+        <TitleComponent className={ucStyles.contentTitle} children={title} />
+        <p className={ucStyles.contentName} children={clientName}/>
+        <div className={ucStyles.contentCategories}>
+          {_.map(categories, (c, i) => {
+            return (
+              <span key={i} children={c} />
+            );
+          })}
+        </div>
+      </div>
+    </article>
+  );
+};
+
+const ucStyles = {};
+ucStyles.main = css`
+  width: 250px;
+  background-color: ${C.COLORS.WHITE};
+  border: 1px solid ${C.COLORS.DIM_GREY};
+  border-radius: ${styles.scl(1)};
+
+  &__img {
+    width: 100%;
+    height: 140px;
+    object-fit: fit;
+  }
+
+  &__content {
+    height: 160px;
+    padding: ${styles.scl(2.5)} ${styles.scl(3)};
+    &__title {
+      ${styles.fonts.bold}
+      font-size: ${styles.scl(2)};
+      line-height: ${styles.scl(3)};
+      margin-bottom: ${styles.scl(1.25)};
+    }
+    &__name {
+      font-size: ${styles.scl(1.75)};
+      line-height: ${styles.scl(3)};
+      margin-bottom: ${styles.scl(2.25)};
+    }
+    &__categories {
+      display: flex;
+      & > * {
+        flex: 1;
+        height: ${styles.scl(2.5)};
+        border: 1px solid ${C.COLORS.VERDIGRIS};
+        border-radius: 2px;
+        font-size: ${styles.scl(1.25)};
+        line-height: ${styles.scl(2)};
+        color: ${C.COLORS.VERDIGRIS};
+        text-align: center;
+        &:not(:last-child) {
+          margin-right: ${styles.scl(1)};
+        }
+      }
+    }
+  }
+
+  ${styles.mq.tabletAndAbove} {
+    width: 190px;
+    &__img {
+      height: 108px;
+    }
+    &__content {
+      height: 120px;
+      padding: ${styles.scl(2.25)};
+      &__title {
+        font-size: ${styles.scl(1.5)};
+        line-height: ${styles.scl(2.25)};
+        margin-bottom: ${styles.scl(0.5)};
+      }
+      &__name {
+        font-size: ${styles.scl(1.25)};
+        line-height: ${styles.scl(3)};
+        margin-bottom: ${styles.scl(1.5)};
+      }
+      &__categories {
+        & > * {
+          height: ${styles.scl(2)};
+          font-size: ${styles.scl(1)};
+          line-height: ${styles.scl(1.75)};
+          &:not(:last-child) {
+            margin-right: ${styles.scl(0.75)};
+          }
+        }
+      }
+    }
+  }
+
+  ${styles.mq.pcAndAbove} {
+    width: 320px;
+    &__img {
+      height: 180px;
+    }
+    &__content {
+      height: 200px;
+      padding: ${styles.scl(3.75)};
+      &__title {
+        font-size: ${styles.scl(2.5)};
+        line-height: ${styles.scl(3.75)};
+        margin-bottom: ${styles.scl(1)};
+      }
+      &__name {
+        font-size: ${styles.scl(2)};
+        line-height: ${styles.scl(3)};
+        margin-bottom: ${styles.scl(2.5)};
+      }
+      &__categories {
+        & > * {
+          height: ${styles.scl(3)};
+          font-size: ${styles.scl(1.5)};
+          line-height: ${styles.scl(3)};
+          &:not(:last-child) {
+            margin-right: ${styles.scl(1.25)};
+          }
+        }
+      }
+    }
+  }
+`;
+ucStyles.img = ucStyles.main + '__img';
+ucStyles.content = ucStyles.main + '__content';
+ucStyles.contentTitle = ucStyles.main + '__content__title';
+ucStyles.contentName = ucStyles.main + '__content__name';
+ucStyles.contentCategories = ucStyles.main + '__content__categories';
 
 
 /* -------------------- Components -------------------- */
