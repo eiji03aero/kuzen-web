@@ -20,7 +20,7 @@ import { styles } from '../utils';
 import { useMedia, useCompositeState } from '../hooks';
 import { paths } from '../paths.js';
 
-// Carousel
+// Carousel & FeatureCard
 import ChevronLeftIcon from 'mdi-react/ChevronLeftIcon';
 import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 
@@ -873,7 +873,7 @@ const IntroductionCard = ({
         children={catchphrase}
       />
       <div className={icStyles.img}>
-        <img src={imageUrl} />
+        <img src={imageUrl} alt={title} />
       </div>
       <div className={icStyles.pointsWrapper}>
         <dl className={icStyles.points}>
@@ -1054,7 +1054,7 @@ const ExplanationCard = ({
 }) => {
   return (
     <article className={ecStyles.main}>
-      <img src={imageUrl} className={ecStyles.img} />
+      <img className={ecStyles.img} src={imageUrl} alt={title} />
       <TitleComponent
         className={ecStyles.title}
         children={title}
@@ -1263,7 +1263,12 @@ const FeatureCard = ({
           <Anchor className={fcStyles.footerAnchor}
             to={to}
             active
-            children={'Learn more' + ' >'}
+            children={
+              <React.Fragment>
+                Learn more
+                <ChevronRightIcon />
+              </React.Fragment>
+            }
           />
         </footer>
       </article>
@@ -1503,7 +1508,7 @@ const UsecaseCard = ({
 }) => {
   return (
     <article className={ucStyles.main}>
-      <img className={ucStyles.img} src={imageUrl} />
+      <img className={ucStyles.img} src={imageUrl} alt={title} />
       <div className={ucStyles.content}>
         <TitleComponent className={ucStyles.contentTitle} children={title} />
         <p className={ucStyles.contentName} children={clientName}/>

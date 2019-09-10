@@ -1,23 +1,18 @@
 import React from 'react';
-import { navigate } from 'gatsby';
 import { useTranslation } from 'react-i18next';
 import { css } from 'emotion';
-import _ from 'lodash';
 import OpenInNewIcon from 'mdi-react/OpenInNewIcon';
 import PhoneIcon from 'mdi-react/PhoneIcon';
 import EmailIcon from 'mdi-react/EmailIcon';
 
-import { Anchor, Button, Container, DropdownChoice, SvgIcon } from '../../atoms';
-import { AnchorDropdown } from '../../molecules';
+import { Anchor, Button, Container, SvgIcon } from '../../atoms';
 
 import * as C from '../../../primitives';
 import { styles } from '../../../utils';
 import { paths } from '../../../paths.js';
 
-import { useCompositeState } from '../../../hooks';
-
 export const Footer = ({
-
+  children
 }) => {
   const { t } = useTranslation(['common']);
 
