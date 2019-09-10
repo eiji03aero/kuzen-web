@@ -24,9 +24,10 @@ export const TypeEffect = ({
   };
 
   const showWord = () => {
-    return createPromise((resolve) => {
+    return createPromise((resolve, reject) => {
       barRef.current.classList.add(Styles.blink);
       setTimeout(() => {
+        if (!barRef.current) return reject();
         barRef.current.classList.remove(Styles.blink);
         return resolve();
       }, showWordMS);
@@ -36,8 +37,8 @@ export const TypeEffect = ({
   const deleteCharacters = () => {
     return createPromise((resolve) => {
       const handler = () => {
-        const text = spanRef.current.textContent;
-        if (text === '') {
+        const text = _.get(spanRef, 'current.textContent');
+        if (text === '' || !text) {
           return resolve();
         }
 
@@ -103,6 +104,9 @@ export const TypeEffect = ({
 
   React.useEffect(() => {
     startTyping();
+    return () => {
+      abortFlag.current = true;
+    };
   }, []);
 
   return (

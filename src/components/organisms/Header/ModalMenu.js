@@ -70,7 +70,8 @@ export const ModalMenu = ({
               className: Styles.anchor
             }}
             extraButtonProps={{
-              label: 'ALL'
+              label: 'ALL',
+              onClick: () => navigate(paths.features)
             }}
             children={
               <div className={Styles.dropdownColumn}>
@@ -170,6 +171,8 @@ export const ModalMenu = ({
 
 const Styles = {};
 Styles.main = css`
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
   overflow: scroll;
@@ -192,12 +195,12 @@ Styles.main = css`
   }
 
   &__button {
-    width: 262px;
+    width: 270px;
   }
 
   &__item {
     &:not(:last-child) {
-      margin-bottom: ${styles.scl(4)};
+      margin-bottom: ${styles.scl(7)};
     }
   }
 
@@ -215,6 +218,10 @@ Styles.main = css`
   ${styles.mq.tabletAndAbove} {
     &__content {
       width: 480px;
+    }
+
+    &__sub-anchor {
+      font-size: ${styles.scl(2.25)};
     }
 
     &__dropdown-column {

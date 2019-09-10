@@ -4,25 +4,29 @@ import Img from 'gatsby-image';
 import { useTranslation } from 'react-i18next';
 import { css } from 'emotion';
 import _ from 'lodash';
+import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 
 import {
-  SvgIcon,
+  Anchor,
   Button,
   Container,
+  SvgIcon,
+
+  Carousel,
+  IntroductionCard,
+  Section,
   TopBanner,
+
+  Html,
+  PromptContactSection,
   TypeEffect,
-  Anchor
 } from '../components';
 import Layout from "../components/layout";
 
 import * as C from '../primitives';
 import { styles } from '../utils';
-import { useMedia, useCompositeState } from '../hooks';
+import { useMedia } from '../hooks';
 import { paths } from '../paths.js';
-
-// Carousel & FeatureCard
-import ChevronLeftIcon from 'mdi-react/ChevronLeftIcon';
-import ChevronRightIcon from 'mdi-react/ChevronRightIcon';
 
 export default ({data}) => {
   const { t, i18n } = useTranslation(['common', 'index']);
@@ -46,8 +50,6 @@ export default ({data}) => {
   const implementationProcess_Web = i18n.language === 'ja'
     ?  data.implementationProcessWeb_ja.childImageSharp.fluid
     :  data.implementationProcessWeb_en.childImageSharp.fluid;
-
-  console.log(data);
 
   return (
     <Layout>
@@ -98,6 +100,7 @@ export default ({data}) => {
               title={t('common:services.kuzen-engage')}
               points={t('index:usecases.kuzen-engage.points', {returnObjects: true})}
               buttonLabel={t('index:usecases.read-more')}
+              onButtonClick={() => navigate(paths.root)}
             />
             <IntroductionCard
               level='h3'
@@ -106,6 +109,7 @@ export default ({data}) => {
               title={t('common:services.kuzen-support')}
               points={t('index:usecases.kuzen-support.points', {returnObjects: true})}
               buttonLabel={t('index:usecases.read-more')}
+              onButtonClick={() => navigate(paths.root)}
             />
             <IntroductionCard
               level='h3'
@@ -114,6 +118,7 @@ export default ({data}) => {
               title={t('common:services.kuzen-work')}
               points={t('index:usecases.kuzen-work.points', {returnObjects: true})}
               buttonLabel={t('index:usecases.read-more')}
+              onButtonClick={() => navigate(paths.root)}
             />
           </div>
         </Container>
@@ -199,14 +204,15 @@ export default ({data}) => {
           <Section.Title component='h2'>
             {t('index:best-feature.title')}
           </Section.Title>
-          <div className={fcStyles.container}>
-            <div className={fcStyles.containerGrid}>
+          <div className={FeatureCard.containerClasses.main}>
+            <div className={FeatureCard.containerClasses.grid}>
               <FeatureCard
                 level='h3'
                 iconName='Mini_Best_Feature_1_Intuitive_UI'
                 title={t('index:best-feature.intuitive-ui.title')}
                 description={t('index:best-feature.intuitive-ui.description')}
                 to={paths.root}
+                link={t('common:learn-more')}
               />
               <FeatureCard
                 level='h3'
@@ -214,6 +220,7 @@ export default ({data}) => {
                 title={t('index:best-feature.nlp.title')}
                 description={t('index:best-feature.nlp.description')}
                 to={paths.root}
+                link={t('common:learn-more')}
               />
               <FeatureCard
                 level='h3'
@@ -221,6 +228,7 @@ export default ({data}) => {
                 title={t('index:best-feature.machine-learning.title')}
                 description={t('index:best-feature.machine-learning.description')}
                 to={paths.root}
+                link={t('common:learn-more')}
               />
               <FeatureCard
                 level='h3'
@@ -228,13 +236,15 @@ export default ({data}) => {
                 title={t('index:best-feature.external-api.title')}
                 description={t('index:best-feature.external-api.description')}
                 to={paths.root}
+                link={t('common:learn-more')}
               />
             </div>
-            <div className={fcStyles.containerFooter}>
+            <div className={FeatureCard.containerClasses.footer}>
               <Button
-                className={fcStyles.containerFooterButton}
+                className={FeatureCard.containerClasses.footerButton}
                 type='secondary-outline'
                 label={t('common:functions.to-list')}
+                onClick={() => navigate(paths.features)}
               />
             </div>
           </div>
@@ -284,193 +294,6 @@ export default ({data}) => {
     </Layout>
   );
 };
-
-const Carousel = ({
-  children,
-  scrollDuration = 500,
-}) => {
-  const [state, setState] = useCompositeState({
-    currentIndex: 0,
-    cardWidth: 0,
-    cardHeight: 0,
-  });
-  const sliderRef = React.useRef(null);
-  const absoluteIndex = React.useRef(0);
-  const isScrolling = React.useRef(false);
-  const mediaQuery = useMedia();
-
-  const arrayChildren = React.Children.toArray(children);
-  const childrenCount = React.Children.count(children);
-  const lastIndex = childrenCount - 1;
-  const cardMargin = mediaQuery.mobile ? 20 :
-    mediaQuery.tablet ? 18 : 30;
-  const displayedSlides = mediaQuery.mobile ? 1 : 3;
-  const sliderWidth = mediaQuery.mobile
-    ? state.cardWidth
-    : state.cardWidth * 3 + cardMargin * 2;
-  const sliderHeight = state.cardHeight;
-
-  const getIndex = (currentIndex, idx) => {
-    const nextIdx = currentIndex + idx;
-    return (
-      nextIdx < 0 ? getIndex(lastIndex + 1, nextIdx) :
-      nextIdx > lastIndex ? getIndex(0, nextIdx - lastIndex - 1) :
-      nextIdx
-    );
-  };
-
-  const moveIndex = (value) => {
-    const nextIndex = getIndex(state.currentIndex, value);
-    absoluteIndex.current += value;
-    setState({ currentIndex: nextIndex });
-  };
-
-  const renderSlide = (idx) => {
-    const childIndex = getIndex(state.currentIndex, idx);
-    const child = arrayChildren[childIndex];
-    const key = `${childIndex}-${absoluteIndex.current + idx}`;
-    const style = {
-      left:
-        idx < 0 ? `${(state.cardWidth + cardMargin) * idx}px` :
-        idx > 0 ? `${(state.cardWidth + cardMargin) * idx}px` :
-        ''
-    };
-    return (
-      <div key={key} className={cStyles.sliderSlide} style={style} data-slide-idx={idx}>
-        {React.cloneElement(child, { key: key })}
-      </div>
-    );
-  };
-
-  const scrollSlides = (indexToMove) => {
-    if (isScrolling.current) return;
-    isScrolling.current = true;
-
-    // Need to reverse the value since to match direction
-    const distance = (state.cardWidth * indexToMove + cardMargin * indexToMove) * -1;
-    const slideDoms = [].slice.call(sliderRef.current.querySelectorAll('.' + cStyles.sliderSlide));
-    _.forEach(slideDoms, (dom) => {
-      dom.style.transition = `transform ${scrollDuration}ms`;
-      dom.style.transform = `translateX(${distance}px)`;
-    });
-    setTimeout(() => {
-      _.forEach(slideDoms, (dom) => {
-        dom.style.transition = '';
-        dom.style.transform = '';
-      });
-      moveIndex(indexToMove);
-      isScrolling.current = false;
-    }, scrollDuration);
-  };
-
-  const handleScrollNext = () => {
-    scrollSlides(displayedSlides);
-  };
-
-  const handleScrollPrevious = () => {
-    scrollSlides(displayedSlides * -1);
-  };
-
-  React.useEffect(() => {
-    const child = sliderRef.current.firstChild.firstChild;
-    setState({cardWidth: child.offsetWidth, cardHeight: child.offsetHeight});
-  }, [mediaQuery]);
-
-  return (
-    <div className={cStyles.main}>
-      <div className={cStyles.slider} ref={sliderRef} style={{width: sliderWidth, height: sliderHeight}}>
-        {[
-          ...(_.map(_.range(-6, 0), renderSlide)),
-          renderSlide(0),
-          ...(_.map(_.range(1, 7), renderSlide))
-        ]}
-      </div>
-      <div className={styles.cn([cStyles.side, cStyles.sideLeft])}>
-        <Button
-          icon={<ChevronLeftIcon />}
-          onClick={handleScrollPrevious}
-        />
-      </div>
-      <div className={styles.cn([cStyles.side, cStyles.sideRight])}>
-        <Button
-          icon={<ChevronRightIcon />}
-          onClick={handleScrollNext}
-        />
-      </div>
-    </div>
-  );
-};
-
-const cStyles = {};
-cStyles.main = css`
-  display: flex;
-  justify-content: center;
-  position: relative;
-  overflow: visible;
-
-  &__slider {
-    position: relative;
-    &__slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
-  &__side {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    width: 60px;
-    height: 100%;
-    &__left {
-      left: 0;
-      background: linear-gradient(90deg, rgba(248, 250, 255, 1), rgba(248, 250, 255, 0))
-    }
-    &__right {
-      right: 0;
-      background: linear-gradient(270deg, rgba(248, 250, 255, 1), rgba(248, 250, 255, 0))
-    }
-    svg {
-      width: ${styles.scl(6)};
-      height: ${styles.scl(6)};
-      path {
-        fill: ${C.COLORS.MANATEE};
-      }
-    }
-  }
-
-  ${styles.mq.tabletAndAbove} {
-    overflow: hidden;
-    &__slider {
-      overflow: hidden;
-    }
-
-    &__side {
-      svg {
-        width: ${styles.scl(5)};
-        height: ${styles.scl(5)};
-      }
-    }
-  }
-
-  ${styles.mq.pcAndAbove} {
-    margin: 0 -72px;
-    &__side {
-      svg {
-        width: ${styles.scl(7)};
-        height: ${styles.scl(7)};
-      }
-    }
-  }
-`;
-cStyles.slider = cStyles.main + '__slider';
-cStyles.sliderSlide = cStyles.main + '__slider__slide';
-cStyles.side = cStyles.main + '__side';
-cStyles.sideLeft = cStyles.main + '__side__left';
-cStyles.sideRight = cStyles.main + '__side__right';
 
 
 export const query = graphql`
@@ -760,291 +583,6 @@ bgStyles.main = css`
   }
 `;
 
-
-/* -------------------- Section -------------------- */
-const Section = ({
-  className = '',
-  type = 'default',
-  ...rest
-}) => {
-  const mainClassName = styles.cn([
-    className,
-    sStyles.main,
-    type && `${sStyles.main}--type-${type}`
-  ]);
-  return (
-    <section className={mainClassName} {...rest}/>
-  );
-};
-
-Section.TitleLogo = ({
-  className = '',
-  children,
-  ...rest
-}) => {
-  return (
-    <div className={styles.cn([className, sStyles.titleLogo])} {...rest}>
-      <img src='Icons/Title-Icon.png' alt='title icon' />
-    </div>
-  );
-};
-
-Section.Title = ({
-  component: Component = 'h1',
-  className = '',
-  ...rest
-}) => {
-  return (
-    <Component className={styles.cn([className, sStyles.title])} {...rest} />
-  );
-};
-
-const sStyles = {};
-sStyles.main = css`
-  padding: ${styles.scl(5)} 0;
-
-  &__title-logo {
-    display: none;
-  }
-
-  &__title {
-    ${styles.fonts.bold}
-    margin: 0 auto ${styles.scl(2)};
-    font-size: ${styles.scl(2.5)};
-    line-height: ${styles.scl(4.75)};
-    color: ${C.COLORS.TAUPE};
-    text-align: center;
-  }
-
-  &--type-default { }
-  &--type-white {
-    background-color: ${C.COLORS.GHOST_WHITE};
-  }
-  &--type-primary {
-    background-color: ${C.COLORS.VERDIGRIS};
-    color: ${C.COLORS.WHITE};
-  }
-
-
-  ${styles.mq.tabletAndAbove} {
-    padding: ${styles.scl(8)} 0;
-    &__title {
-      margin: 0 auto ${styles.scl(5)};
-      font-size: ${styles.scl(3.5)};
-    }
-  }
-
-  ${styles.mq.pcAndAbove} {
-    padding: ${styles.scl(9)} 0;
-    &__title-logo {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto ${styles.scl(5)};
-      img {
-        width: ${styles.scl(8.5)};
-        height: ${styles.scl(8.75)};
-      }
-    }
-    &__title {
-      margin: 0 auto ${styles.scl(5)};
-      font-size: ${styles.scl(4)};
-    }
-  }
-`;
-sStyles.titleLogo = sStyles.main + '__title-logo';
-sStyles.title = sStyles.main + '__title';
-
-
-/* -------------------- IntroductionCard -------------------- */
-const IntroductionCard = ({
-  level: TitleComponent = 'h1',
-  catchphrase,
-  imageUrl,
-  title,
-  points,
-  buttonLabel,
-  to,
-}) => {
-  const mediaQuery = useMedia();
-  return (
-    <article className={icStyles.main}>
-      <TitleComponent
-        className={icStyles.catchphrase}
-        children={catchphrase}
-      />
-      <div className={icStyles.img}>
-        <img src={imageUrl} alt={title} />
-      </div>
-      <div className={icStyles.pointsWrapper}>
-        <dl className={icStyles.points}>
-          <dt
-            className={icStyles.title}
-            children={title}
-          />
-          {_.map(points, (p, i) => (
-            <dd key={i}>
-              <SvgIcon name='Tick'/>
-              <span>{p}</span>
-            </dd>
-          ))}
-        </dl>
-      </div>
-      <Button
-        type={mediaQuery.mobile
-          ? 'secondary'
-          : 'secondary-outline'}
-        label={buttonLabel}
-        block
-        className={icStyles.button}
-        onClick={() => navigate(to)}
-      />
-    </article>
-  );
-};
-
-const icStyles = {};
-icStyles.main = css`
-  width: 280px;
-
-  &__catchphrase {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    height: ${styles.scl(8.5)};
-    margin-bottom: ${styles.scl(5)};
-    border: 3px solid ${C.COLORS.LAVENDER_INDIGO};
-    color: ${C.COLORS.LAVENDER_INDIGO};
-    font-size: ${styles.scl(2)};
-    text-align: center;
-    white-space: pre;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      border-top: ${styles.scl(1.5)} solid ${C.COLORS.LAVENDER_INDIGO};
-      border-left: ${styles.scl(1.5)} solid transparent;
-      border-right: ${styles.scl(1.5)} solid transparent;
-      transform: translateX(-50%);
-    }
-  }
-  &__img {
-    display: flex;
-    padding: 0 ${styles.scl(3.5)};
-    margin-bottom: ${styles.scl(2.25)};
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
-  &__title {
-    ${styles.fonts.bold}
-    display: flex;
-    justify-content: center;
-    margin-bottom: ${styles.scl(1.25)};
-    font-size: ${styles.scl(2.75)};
-    line-height: ${styles.scl(4)};
-  }
-  &__points-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-  &__points {
-    margin-bottom: ${styles.scl(2.5)};
-    & > * {
-      display: flex;
-      align-items: center;
-      span {
-        margin-left: ${styles.scl(1.5)};
-        font-size: ${styles.scl(2)};
-        line-height: ${styles.scl(3.75)};
-      }
-      svg {
-        width: ${styles.scl(2)};
-        height: ${styles.scl(2)};
-        path {
-          fill: ${C.COLORS.LAVENDER_INDIGO};
-        }
-      }
-    }
-  }
-  &__button {
-    font-size: ${styles.scl(1.75)};
-  }
-
-
-  ${styles.mq.tabletAndAbove} {
-    width: 210px;
-    &__catchphrase {
-      height: ${styles.scl(9.5)};
-      font-size: ${styles.scl(1.75)};
-      line-height: ${styles.scl(3)};
-      margin-bottom: ${styles.scl(1.75)};
-    }
-    &__img {
-      height: 146px;
-      padding: 0;
-    }
-    &__title {
-      margin-bottom: ${styles.scl(1)};
-      font-size: ${styles.scl(2.25)};
-      line-height: ${styles.scl(4)};
-    }
-    &__points {
-      margin-bottom: ${styles.scl(3)};
-      & > * {
-        span {
-          font-size: ${styles.scl(1.5)};
-          line-height: ${styles.scl(2.75)};
-        }
-      }
-    }
-    &__button {
-      height: ${styles.scl(3)};
-      font-size: ${styles.scl(1.75)};
-    }
-  }
-
-  ${styles.mq.pcAndAbove} {
-    width: 314px;
-    &__catchphrase {
-      height: ${styles.scl(14)};
-      font-size: ${styles.scl(2.75)};
-      line-height: ${styles.scl(3.5)};
-      margin-bottom: ${styles.scl(4)};
-    }
-    &__img {
-      height: 230px;
-      padding: 0;
-    }
-    &__title {
-      margin-bottom: ${styles.scl(1.5)};
-      font-size: ${styles.scl(3.25)};
-    }
-    &__points {
-      margin-bottom: ${styles.scl(5)};
-      & > * {
-        span {
-          font-size: ${styles.scl(2.25)};
-          line-height: ${styles.scl(3.75)};
-        }
-      }
-    }
-    &__button {
-      height: ${styles.scl(5)};
-      font-size: ${styles.scl(2.25)};
-    }
-  }
-`;
-icStyles.catchphrase = icStyles.main + '__catchphrase';
-icStyles.img = icStyles.main + '__img';
-icStyles.title = icStyles.main + '__title';
-icStyles.pointsWrapper = icStyles.main + '__points-wrapper';
-icStyles.points = icStyles.main + '__points';
-icStyles.button = icStyles.main + '__button';
-
 /* -------------------- ExplanationCard -------------------- */
 const ExplanationCard = ({
   level: TitleComponent = 'h1',
@@ -1154,94 +692,14 @@ ecGridStyles.main = css`
   }
 `;
 
-/* -------------------- PromptContactSection -------------------- */
-const PromptContactSection = ({
-  className,
-  level: TitleComponent = 'h1',
-  ...rest
-}) => {
-  const mediaQuery = useMedia();
-  const { t } = useTranslation('common');
-  const mainClassName = styles.cn([
-    className,
-    pcsStyles.main
-  ]);
-  return (
-    <Section className={mainClassName} type='primary'>
-      <Container className={pcsStyles.content}>
-        <TitleComponent
-          className={pcsStyles.sentence}
-          children={
-            <>
-              {t('common:prompt-contact-section.title-1')}
-              <br className={styles.show.mobileOnly} />
-              {t('common:prompt-contact-section.title-2')}
-              <br className={styles.show.tabletOnly} />
-              {t('common:prompt-contact-section.title-3')}
-            </>
-          }
-        />
-        <Button
-          type='white-outline'
-          size={mediaQuery.mobile
-            ? 'default'
-            : 'medium'}
-          label={t('common:prompt-contact-section.contact-us')}
-        />
-      </Container>
-    </Section>
-  );
-};
 
-const pcsStyles = {};
-pcsStyles.main = css`
-  &__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__sentence {
-    ${styles.fonts.bold}
-    font-size: ${styles.scl(2.25)};
-    line-height: ${styles.scl(4)};
-    margin-bottom: ${styles.scl(2.5)};
-    text-align: center;
-  }
-
-  ${styles.mq.tabletAndAbove} {
-    &__content {
-      flex-direction: row;
-      flex-flow: row-reverse;
-      justify-content: center;
-    }
-
-    &__sentence {
-      font-size: ${styles.scl(2.75)};
-      line-height: ${styles.scl(4)};
-      margin-bottom: 0;
-      margin-left: ${styles.scl(5)};
-      text-align: left;
-    }
-  }
-
-  ${styles.mq.pcAndAbove} {
-    &__sentence {
-      font-size: ${styles.scl(3.5)};
-    }
-  }
-`;
-pcsStyles.content = pcsStyles.main + '__content';
-pcsStyles.sentence = pcsStyles.main + '__sentence';
-pcsStyles.span = pcsStyles.main + '__span';
-
-
-/* -------------------- FeatureCard -------------------- */
+/* -------------------- UsecaseCard -------------------- */
 const FeatureCard = ({
-  level: TitleComponent = 'h1',
+  level: TitleComponent,
   iconName,
   title,
   description,
+  link,
   to
 }) => {
   return (
@@ -1265,7 +723,7 @@ const FeatureCard = ({
             active
             children={
               <React.Fragment>
-                Learn more
+                {link}
                 <ChevronRightIcon />
               </React.Fragment>
             }
@@ -1274,6 +732,10 @@ const FeatureCard = ({
       </article>
     </div>
   );
+};
+
+FeatureCard.defaultProps = {
+  level: 'h1'
 };
 
 const fcStyles = {};
@@ -1497,6 +959,12 @@ fcStyles.containerGrid = fcStyles.container + '__grid';
 fcStyles.containerFooter = fcStyles.container + '__footer';
 fcStyles.containerFooterButton = fcStyles.container + '__footer__button';
 
+FeatureCard.containerClasses = {
+  main: fcStyles.container,
+  grid: fcStyles.containerGrid,
+  footer: fcStyles.containerFooter,
+  footerButton: fcStyles.containerFooterButton
+};
 
 /* -------------------- UsecaseCard -------------------- */
 const UsecaseCard = ({
@@ -1636,13 +1104,3 @@ ucStyles.content = ucStyles.main + '__content';
 ucStyles.contentTitle = ucStyles.main + '__content__title';
 ucStyles.contentName = ucStyles.main + '__content__name';
 ucStyles.contentCategories = ucStyles.main + '__content__categories';
-
-
-/* -------------------- Components -------------------- */
-const Html = ({
-  component: Component = 'div',
-  children,
-  ...rest
-}) => {
-  return <Component dangerouslySetInnerHTML={{__html: children}} { ...rest } />;
-};

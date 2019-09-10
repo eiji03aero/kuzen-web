@@ -14,12 +14,14 @@ export const HEADER_HEIGHT = {
 
 export const COLORS = {
   GHOST_WHITE: 'rgba(248, 250, 255, 1)',
+  WHITE_SMOKE: 'rgba(246, 246, 246, 1)',
   WHITE: '#ffffff',
   DIM_GREY: 'rgba(0, 0, 0, 0.16)',
   TAUPE: 'rgba(58, 55, 56, 1)',
   MANATEE: 'rgba(155, 154, 150, 1)',
   GAINSBORO: 'rgba(220, 219, 216, 1)',
   LAVENDER_INDIGO: 'rgba(146, 93, 226, 1)',
+  LAVENDER_INDIGO_56: 'rgba(146, 93, 226, 0.56)',
   VERDIGRIS: 'rgba(71, 192, 176, 1)',
 };
 

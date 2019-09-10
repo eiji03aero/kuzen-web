@@ -50,11 +50,29 @@ Styles.main = css`
     align-items: center;
     height: calc(100vh - ${C.HEADER_HEIGHT.MOBILE}px);
   }
+  &--type-short {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+  }
+  &--type-short &__img {
+    display: none;
+  }
 
 
   ${styles.mq.tabletAndAbove} {
     &--type-full {
       height: 480px;
+    }
+    &--type-short {
+      height: 250px;
+    }
+    &--type-short > *:not(&__img) {
+      transform: translateY(${styles.scl(3.75)});
+    }
+    &--type-short &__img {
+      display: block;
     }
   }
 
@@ -62,6 +80,9 @@ Styles.main = css`
   ${styles.mq.pcAndAbove} {
     &--type-full {
       height: 790px;
+    }
+    &--type-short {
+      height: 420px;
     }
   }
 `;

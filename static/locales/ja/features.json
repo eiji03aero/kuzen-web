@@ -1,0 +1,50 @@
+{
+  "intuitive-ui": {
+    "title": "直感的なUI",
+    "description": "専門知識のいらない直感操作で簡単にチャットボットを作ったり管理したりすることができます"
+  },
+  "scenario": {
+    "title": "シナリオ作成",
+    "description": "ユーザーのニーズに合わせた多様なシナリオを、フローチャートで作成できます"
+  },
+  "customizable-contents": {
+    "title": "様々な応答方法",
+    "description": "一問一答やフロー型でテキスト・画像・選択肢・フォームなどの形で返答できます"
+  },
+  "data-analytics": {
+    "title": "データ分析",
+    "description": "表やグラフで顧客情報を可視化し、簡単にレポートが作成できます"
+  },
+  "nlp": {
+    "title": "自然言語処理",
+    "description": "自社開発の自然言語処理エンジンを搭載し、ユーザーからの様々な言い回しに対応できます"
+  },
+  "machine-learning": {
+    "title": "学習機能",
+    "description": "想定外の発言データを蓄積し、学習することで回答の制度を向上させることができます"
+  },
+  "multilingual-support": {
+    "title": "多言語対応",
+    "description": "日本語で作成したシナリオを100か国以上の言語に自動翻訳することができます"
+  },
+  "operator": {
+    "title": "有人切替",
+    "description": "ボットでは回答できない時に、オペレーターに切り替えることで、フレキシブルな対応ができます"
+  },
+  "notifications": {
+    "title": "セグメント配信",
+    "description": "ユーザーの属性や行動履歴に応じ適切なタイミングで詳細なセグメント配信を行うことができます"
+  },
+  "custom-db": {
+    "title": "カスタムDB",
+    "description": "個別データベースを用いて、細かな条件に応じてデータを出し分けることができます"
+  },
+  "integration-with-chat-platforms": {
+    "title": "対話IFとの連携",
+    "description": "Web Plugin・LINE・Facebook Messenger・Slack等の様々なインターフェイスに導入することができます"
+  },
+  "integration-with-external-systems": {
+    "title": "外部API連携",
+    "description": "リアルタイムにシステム間連携を行い、ダイナミックなチャットボット活用を開発不要で行うことができます"
+  }
+}

@@ -1,0 +1,39 @@
+
+{
+  "intuitive-ui": {
+    "icon": "Feature_1_Intuitive_UI"
+  },
+  "scenario": {
+    "icon": "Feature_2_Scenario"
+  },
+  "customizable-contents": {
+    "icon": "Feature_3_Customizable_Contents"
+  },
+  "data-analytics": {
+    "icon": "Feature_4_Data_Analytics"
+  },
+  "nlp": {
+    "icon": "Feature_5_NLP"
+  },
+  "machine-learning": {
+    "icon": "Feature_6_Machine_Learning"
+  },
+  "multilingual-support": {
+    "icon": "Feature_7_Multilingual_Support"
+  },
+  "operator": {
+    "icon": "Feature_8_Operator"
+  },
+  "notifications": {
+    "icon": "Feature_9_Notifications"
+  },
+  "custom-db": {
+    "icon": "Feature_10_Custom_DB"
+  },
+  "integration-with-chat-platforms": {
+    "icon": "Feature_11_Integration_with_Chat_Platforms"
+  },
+  "integration-with-external-systems": {
+    "icon": "Feature_12_Integration_with_External_Systems"
+  }
+}

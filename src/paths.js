@@ -1,4 +1,5 @@
 export const paths = {
   root: '/',
-  contact: '/'
+  contact: '/',
+  features: '/features'
 };
